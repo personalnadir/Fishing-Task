@@ -49,7 +49,7 @@ export default function createPhase2Block(images, phase1Block) {
 	let phase1LookUp = {};
 
 	phase1Block.forEach(val=> {
-		phase1LookUp[val.image] = val.rule === 'Accept': 'Tax' : 'Subsidy';
+		phase1LookUp[val.image] = val.rule === 'Accept'? 'Tax' : 'Subsidy';
 	});
 
 	const newImages = images.filter(img => phase1Block[img.path] === undefined);
