@@ -33,34 +33,6 @@ function populateArray(arr, genValue, start, end) {
 	return arr;
 }
 
-export default function createPhase1Block(images) {
-	const fishImages = images.filter(img => img.type === 'Fish');
-	const crabImages = images.filter(img => img.type === 'Crab');
-
-	const trialFactory = (img, i) => ({
-		type: img.type,
-		image: img.path,
-		rule: (i % 2 == 0)? 'Accept' : 'Reject'
-	});
-	return fishImages.map(trialFactory).concat(crabImages.map(trialFactory));
-}
-
-export default function createPhase2Block(images, phase1Block) {
-	let phase1LookUp = {};
-
-	phase1Block.forEach(val=> {
-		phase1LookUp[val.image] = val.rule === 'Accept'? 'Tax' : 'Subsidy';
-	});
-
-	const newImages = images.filter(img => phase1Block[img.path] === undefined);
-	const phase1Images = images.filter(img => phase1Block[img.path] !== undefined);
-	return createPhase1Block(newImages).concat(phase1Images.map(img => ({
-		type: img.type,
-		rule: phase1LookUp[img.path],
-		image: img.path
-	}));
-}
-
 export default function createTrials(images, numBlocks, fishAccept, fishReject, crabAccept, crabReject, rules) {
 	const blockSize = fishAccept + fishReject + crabAccept + crabReject;
 
