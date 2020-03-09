@@ -29,9 +29,8 @@ function splitImages(combinedImages) {
 		const phase2a = phase1.slice(0, 4);
 		const phase2 = phase2a.concat(phase2b);
 
-		const phase3b = phase2b.slice(0,1);
-		const phase3c = phase1.slice(4, 5);
-		const phase3 = phase2a.slice(0, 4).concat(phase3b).concat(phase3c);
+		const phase3b = phase1.slice(4, 8);
+		const phase3 = phase2a.slice(0, 4).concat(phase3b);
 
 		return {
 			phase1,
@@ -58,6 +57,6 @@ console.assert(_.intersection(phase1, phase2).length === 8, 'images: phase1 and 
 const p23 = _.intersection(phase2, phase3).length;
 const p13 = _.intersection(phase1, phase3).length;
 
-console.assert(p23 === 10, `images: phase2 and phase3 do not share the right number of images ${p23}`);
-console.assert(p13 === 10, `images: phase1 and phase3 do not share the right number of images ${p13}`);
+console.assert(p23 === 8, `images: phase2 and phase3 do not share the right number of images ${p23}`);
+console.assert(p13 === 12, `images: phase1 and phase3 do not share the right number of images ${p13}`);
 export {phase1Practice, phase1, phase2, phase3};
