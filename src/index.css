@@ -1,3 +1,5 @@
+@import-normalize;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +12,298 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.Outline {
+  border-radius: 25px;
+  margin: 0px;
+  padding: 0px;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.Outline.Blue {
+  border: 5px solid #06f;
+}
+
+
+.Outline.Orange {
+  border: 5px solid #f60;
+}
+
+.Outline.Black {
+  border: 5px solid black;
+}
+
+.Filled {
+  border-radius: 25px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.Filled.Blue {
+  border: 5px solid #06f;
+  background-color: rgba(0, 102, 255, 0.4);
+}
+
+.Filled.Orange {
+  border: 5px solid #f60;
+  background-color: rgba(255, 102, 0, 0.4);
+}
+
+.Filled.Teal {
+  border: 5px solid aqua;
+  background-color: rgba(0, 255, 255, 0.4);
+}
+
+#catchcontainer {
+  left:calc(50% - 460px/2);
+  width : 460px;
+  height: 460px;
+  position: relative;
+}
+
+.FullScreen {
+  width:100%;
+  height: 100%;
+  left:0;
+  top:0;
+  position:fixed;
+}
+
+.VerticalAlignContainer {
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle
+}
+
+.Error {
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+  color: white;
+  font-size: 120px;
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) rotate(-45deg);
+  -ms-transform: translate(-50%, -50%) rotate(-45deg);
+  transform: translate(-50%, -50%) rotate(-45deg);
+  text-align: center;
+}
+
+.Rule {
+  display: inline-block;
+  border-radius: 25px;
+  height: 180px;
+  line-height: 180px;
+  width: 480px;
+  font-size: 120px;
+  color: white;
+  vertical-align: middle;
+  text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
+}
+
+.Rule.Accept {
+  border: 5px solid #5d5dfc;
+  background-color: #5d5dfc;
+  background: #5d5dfc; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #5d5dfc 0%, #7db9e8 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #5d5dfc 0%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #5d5dfc 0%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5dfc', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.Rule.Reject {
+  border: 5px solid #f76519;
+  background-color: #f76519;
+  background: #f76519; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #f76519 0%, #fc0 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #f76519 0%,#fc0 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #f76519 0%,#fc0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f76519', endColorstr='#fc0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.Rule.Free {
+  font-size: 90px;
+  border: 5px solid cyan;
+  background-color: cyan;
+  background: cyan; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, cyan 0%, #cff 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, cyan 0%,#cff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, cyan 0%,#cff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='cyan', endColorstr='#cff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.Instruction {
+  font-size: 80px;
+  posiiton: relative;
+}
+
+.FaceText {
+  font-size: 80px;
+  color: white;
+}
+
+.Hidden {
+  visibility: hidden;
+}
+
+.Bucket {
+  position: relative;
+  padding: 10px;
+}
+
+.BucketContainer {
+  margin-top:16%;
+  display:block;
+}
+
+.Key {
+  background-image: url(./images/phase1practice/keyboard_key_empty.png);
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+  font-weight: bold;
+  padding-top: 0.2em;
+  margin-top: 1em;
+  background-clip: border-box;
+  background-repeat: no-repeat;
+  background-origin: border-box;
+  background-size: contain;
+  left: calc(50% - 50px);
+  position: relative;;
+}
+
+.BucketColumn {
+  width:25%;
+  min-width: 250px;
+  max-width: 300px;
+  display:inline-block;
+}
+
+.CatchImage {
+  display: inline-block;
+  margin: auto;
+  vertical-align: middle
+}
+
+.BlackBackground {
+  background-color: black;
+}
+
+.ImageVerticalAlignHelper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+
+.KeyHighlight {
+  border-width: 3px solid;
+  border-radius: 200px;
+  width:150px;
+  height:150px;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  left:calc(50% - 80px);
+  top: -140px;
+  z-index: 2;
+}
+
+.KeyHighlight.Reject {
+  border: 5px solid #f76519;
+}
+
+.KeyHighlight.Accept {
+  border: 5px solid #06f;
+}
+
+.Bar {
+  font-size: .8em;
+  line-height: 1;
+  text-transform: uppercase;
+  width: 100%;
+  height: 40px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+  background-image: linear-gradient(to right, black, transparent 4% 100%);
+  background-size: 10% 40px;
+  background-repeat: repeat-x;
+  background-position: 0 0;
+
+}
+
+.Percentage {
+  content: "";
+  display: block;
+  background-color: #3d9970;
+  margin-bottom: 10px;
+  height: 90%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: background-color .3s ease;
+}
+
+dl {
+  background-color: white;
+  width: 100%;
+  min-width: 200px;
+  position: relative;
+  max-width: 700px;
+  padding: 0;
+  margin:0;
+  left: -40px;
+}
+
+dd {
+  margin-bottom: 5px;
+}
+
+dt {
+  width: 100%;
+  font-weight: 700;
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.ChartText {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  width: 130px;
+  right: 0;
+  margin-left: 1em;
+}
+
+.TextEmphasis {
+  font-size: 2em;
+  color: #00003c;
+  text-align: center;
+}
+
+.TextTitle {
+  font-size:4em;
+  width: 100%;
+  position: relative;
 }
