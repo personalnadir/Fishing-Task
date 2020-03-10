@@ -7,7 +7,7 @@ export function createPhase1Block(images) {
 	const trialFactory = (img, i) => ({
 		type: img.type,
 		image: img.path,
-		rule: (i % 2 == 0)? 'Accept' : 'Reject'
+		rule: (i % 2 === 0)? 'Accept' : 'Reject'
 	});
 	return fishImages.map(trialFactory).concat(crabImages.map(trialFactory));
 }
