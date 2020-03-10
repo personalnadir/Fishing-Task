@@ -4,6 +4,7 @@ import {
   actionReducers
 } from "../phase1actions";
 
+import {phase1Block} from '../../trialblocks';
 import createTrials, {forceKeys} from '../../trials';
 import {phase1} from '../../images';
 import {PAGE_FLOW} from '../phase1constants.js';
@@ -14,7 +15,7 @@ const initialState = {
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
-  trials: createTrials(phase1, 10, 3, 3, 3, 3, ['Accept', 'Reject']),
+  trials: createTrials(phase1, 10, phase1Block),
 };
 
 const trialsBetweenFeedback = 5;

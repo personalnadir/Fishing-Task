@@ -32,51 +32,19 @@ function populateArray(arr, genValue, start, end) {
 	// Step 13.
 	return arr;
 }
+export default function createTrials(images, numBlocks, trialBlock) {
+	let blocks = new Array(numBlocks * trialBlock.length);
 
-export default function createTrials(images, numBlocks, fishAccept, fishReject, crabAccept, crabReject, rules) {
-	const blockSize = fishAccept + fishReject + crabAccept + crabReject;
-
-	const fishImages = images.filter(img => img.type === 'Fish');
-	const crabImages = images.filter(img => img.type === 'Crab');
-
-	let blocks = new Array(numBlocks);
-	const createBlock = ()=> {
-		let block = new Array(blockSize);
-		block = populateArray(block, () => ({type:'Fish', rule: rules[0]}), 0, fishAccept);
-		let index = fishAccept;
-		populateArray(block, () => ({type:'Fish', rule: rules[1]}), index, index + fishReject);
-		index += fishReject;
-		populateArray(block, () => ({type:'Crab', rule: rules[0]}), index, index + crabAccept);
-		index += crabAccept;
-		populateArray(block, () => ({type:'Crab', rule: rules[1]}), index);
-
-		function iteratorManager(arr) {
-			let itr = arr.values()
-			return () => {
-				let r = itr.next();
-				if (r.done) {
-					itr = arr.values();
-					r = itr.next();
-				}
-				return r.value.path;
-			}
-		}
-
-		let imageIterators = {
-			'Fish': iteratorManager(shuffle(fishImages)),
-			'Crab': iteratorManager(shuffle(crabImages))
-		}
-
-		block.map(trial => trial.image = imageIterators[trial.type]());
-
-		return shuffle(block);
-	}
+	const createBlockTrials = block => shuffle(trialBlock.slice());
 
 	for (let i = 0; i < numBlocks; i++) {
-		blocks[i] = createBlock();
+		const trials = createBlockTrials(trialBlock);
+		for (let k = 0; k < trialBlock.length; k ++) {
+			blocks[(i * trialBlock.length) + k] = trials[k];
+		}
 	}
 
-	return blocks.flat();
+	return blocks;
 }
 
 function forceKeys(trials, forFirst) {

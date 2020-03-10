@@ -9,7 +9,7 @@ import {
 
 import createTrials, {forceKeys} from '../../trials';
 import {phase1Practice} from '../../images';
-
+import {phasePractice1Block} from '../../trialblocks';
 
 const startPageIndex = 0;
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
-  trials: forceKeys(createTrials(phase1Practice, 1, 3, 2, 2, 3, ['Accept', 'Reject']), 6),
+  trials: forceKeys(createTrials(phase1Practice, 1, phasePractice1Block), 6),
 };
 
 export default function(state = initialState, action) {

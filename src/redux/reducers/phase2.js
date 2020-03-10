@@ -5,6 +5,7 @@ import {
 } from "../phase2actions";
 
 import createTrials, {forceKeys, mapImagePathsToKeys} from '../../trials';
+import {phase2Block} from '../../trialblocks';
 import {phase2} from '../../images';
 import {PAGE_FLOW} from '../phase2constants.js';
 
@@ -14,7 +15,7 @@ const initialState = {
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
-  trials: createTrials(phase2, 10, 3, 3, 3, 3, ['Subsidy', 'Tax']),
+  trials: createTrials(phase2, 10, phase2Block),
   keyLookUp: mapImagePathsToKeys(phase2),
   earnings: 0
 };

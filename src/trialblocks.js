@@ -1,4 +1,4 @@
-import {phase1, phase2, phase3} from './images';
+import {phase1Practice, phase1, phase2, phase3} from './images';
 
 export function createPhase1Block(images) {
 	const fishImages = images.filter(img => img.type === 'Fish');
@@ -83,6 +83,7 @@ export function createPhase3Block(images, phase1Block, phase2Block) {
 	.concat(Object.values(rules).map(func => func()));
 }
 
+export const phasePractice1Block = createPhase1Block(phase1Practice);
 export const phase1Block = createPhase1Block(phase1);
 export const phase2Block = createPhase2Block(phase2, phase1Block);
 export const phase3Block = createPhase3Block(phase3, phase1Block, phase2Block);
