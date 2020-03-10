@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import cross from './images/fixation_cross.png';
 import mildNegativeFace from './images/faces/mild_negative_face.png';
 import mildPositiveFace from './images/faces/mild_positive_face.png';
 import strongNegativeFace from './images/faces/strong_negative_face.png';
@@ -9,13 +8,6 @@ import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import getTrial, {getPhase, getNextPageAction, getWasCorrect, getWasLate} from './redux/selectors';
 import {startTimeout} from './redux/action';
 import {adjustEarnings} from './redux/phase2actions';
-
-const feedback = {
-  StrongPositive : strongPositiveFace,
-  MildPositive : mildPositiveFace,
-  StrongNegative : strongNegativeFace,
-  MildNegative : mildNegativeFace,
-}
 
 const avoidanceFaces = {
   correct: strongPositiveFace,

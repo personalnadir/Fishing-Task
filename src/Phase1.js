@@ -1,6 +1,5 @@
 import React from 'react';
 import Rule from './Rule';
-import Buckets from './Buckets';
 import Catch from './Catch';
 import Feedback from './Feedback';
 import { connect } from 'react-redux';

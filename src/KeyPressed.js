@@ -8,7 +8,6 @@ import getTrial, {
   getStoreKeyReactionTimeAction,
   getCustomCorrectKey
 } from './redux/selectors';
-import {PHASE2} from './redux/globalconstants';
 
 const keyCodes = {'KeyC': true, 'KeyX': true, 'KeyN': true, 'KeyM': true};
 const ruleToKey = {

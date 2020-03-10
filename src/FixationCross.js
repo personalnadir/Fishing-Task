@@ -1,7 +1,7 @@
 import React from 'react';
 import cross from './images/fixation_cross.png';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
-import getTrial, {getPhase, getNextPageAction} from './redux/selectors';
+import {getPhase, getNextPageAction} from './redux/selectors';
 import {startTimeout} from './redux/action';
 
 import { connect } from 'react-redux'
