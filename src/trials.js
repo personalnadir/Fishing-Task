@@ -94,8 +94,6 @@ function mapImagePathsToKeys(images) {
 }
 
 function ensureKeysAreUnique(pathToKeys1, pathToKeys2) {
-	const matchingKeys = _.intersection(pathToKeys1, pathToKeys2);
-
 	let matches = [];
 	let nonMatches = [];
 	_.mapObject(pathToKeys1, (val, key) => {

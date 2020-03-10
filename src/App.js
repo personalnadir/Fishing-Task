@@ -5,8 +5,6 @@ import Global from './Global';
 import { Provider } from 'react-redux'
 import store from './redux/store'
 
-import Feedback from './Feedback';
-
 function App(props) {
   return (
     <Provider store={store}>

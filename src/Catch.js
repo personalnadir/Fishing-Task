@@ -89,7 +89,6 @@ const mapStateToProps = (state, ownProps) => {
   const phase = getPhase(state);
   const isFeedback = isFeedbackPage(state);
   const isPhase1 = phase === PHASE1;
-  const isPhase2 = phase === PHASE2;
   const wasCorrect = getWasCorrect(state);
   const earnings = getEarnings(state);
   const wasReject = getWasReject(state);
@@ -125,7 +124,7 @@ const mapStateToProps = (state, ownProps) => {
     isFish: trial.type === "Fish",
     wasWrong: (isPhase1 && !wasCorrect) || trial.forceMistake === true,
     showText: isFeedback,
-    requireKeyboardInput: isPhase1 && !isFeedback || isPhase2,
+    requireKeyboardInput,
     rule,
     earnings,
     timeout,

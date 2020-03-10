@@ -4,7 +4,7 @@ import {
   actionReducers,
 } from "../phase2actions";
 
-import createTrials, {forceKeys, mapImagePathsToKeys} from '../../trials';
+import createTrials, {mapImagePathsToKeys} from '../../trials';
 import {phase2Block} from '../../trialblocks';
 import {phase2} from '../../images';
 import {PAGE_FLOW} from '../phase2constants.js';

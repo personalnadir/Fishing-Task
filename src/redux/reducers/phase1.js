@@ -5,7 +5,7 @@ import {
 } from "../phase1actions";
 
 import {phase1Block} from '../../trialblocks';
-import createTrials, {forceKeys} from '../../trials';
+import createTrials from '../../trials';
 import {phase1} from '../../images';
 import {PAGE_FLOW} from '../phase1constants.js';
 
