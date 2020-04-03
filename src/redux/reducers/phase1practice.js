@@ -1,6 +1,6 @@
 import {
   NEXT_PAGE,
-  keyStoreReducer
+  actionReducers
 } from "../phase1practiceactions";
 
 import {
@@ -17,12 +17,16 @@ const initialState = {
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
-  trials: forceKeys(createTrials(phase1Practice, 1, phasePractice1Block), 6),
+  trials: forceKeys(createTrials(phase1Practice, 1, phasePractice1Block), 5),
 };
 
 export default function(state = initialState, action) {
   switch (action.type) {
     case NEXT_PAGE:
+      if (action.trialIndex !== state.trialIndex) {
+        console.log(`${action.trialIndex} !== ${state.trialIndex}`);
+        return state;
+      }
       const {pageIndex: curPage} = state;
       const lastPage = curPage + 1 === PAGE_FLOW.length;
       const nextPage = lastPage? 0: curPage + 1;
@@ -34,6 +38,6 @@ export default function(state = initialState, action) {
         trialIndex: trialIndex,
       }
     default:
-      return keyStoreReducer(state, action);
+      return actionReducers(state, action);
   }
 }

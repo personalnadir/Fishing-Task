@@ -8,6 +8,7 @@ function importAll(r) {
 }
 
 const phase1PracticeImages = importAll(require.context('./images/fish/phase1practice', false, /\.(png|jpe?g|svg)$/));
+const phase2PracticeImages = importAll(require.context('./images/fish/phase2practice', false, /\.(png|jpe?g|svg)$/));
 const nonPracticeImages = importAll(require.context('./images/fish/phase1', false, /\.(png|jpe?g|svg)$/));
 
 function convertToList(obj) {
@@ -18,6 +19,7 @@ function convertToList(obj) {
 }
 
 const phase1Practice = convertToList(phase1PracticeImages);
+const phase2Practice = convertToList(phase2PracticeImages);
 const nonPractice = convertToList(nonPracticeImages);
 
 function splitImages(combinedImages) {
@@ -59,4 +61,4 @@ const p13 = _.intersection(phase1, phase3).length;
 
 console.assert(p23 === 8, `images: phase2 and phase3 do not share the right number of images ${p23}`);
 console.assert(p13 === 12, `images: phase1 and phase3 do not share the right number of images ${p13}`);
-export {phase1Practice, phase1, phase2, phase3};
+export {phase1Practice, phase2Practice, phase1, phase2, phase3};

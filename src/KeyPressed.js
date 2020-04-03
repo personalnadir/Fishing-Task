@@ -3,11 +3,16 @@ import { connect } from 'react-redux'
 import getTrial, {
   getPhase,
   getTrialRule,
+  getCustomCorrectKey,
+  getCurrentTrialIndex
+} from './redux/selectors';
+
+import {
   getNextPageAction,
   getStoreKeyStrokeAction,
   getStoreKeyReactionTimeAction,
-  getCustomCorrectKey
-} from './redux/selectors';
+  getHandleKeyStroke
+} from './redux/phaseactions';
 
 const keyCodes = {'KeyC': true, 'KeyX': true, 'KeyN': true, 'KeyM': true};
 const ruleToKey = {
@@ -49,20 +54,15 @@ class KeyPressed extends React.Component {
 
   	let dispatchPressed = false;
     if (this.props.forceKey) {
-      if (correct) {
-        this.props.nextPage(this.props.phase);
-        dispatchPressed = true;
-      }
+      dispatchPressed = correct;
     } else {
-      if (keyCodes[event.code]) {
-        this.props.nextPage(this.props.phase);
-        dispatchPressed = true;
-      }
+      dispatchPressed = keyCodes[event.code];
     }
 
     if (dispatchPressed) {
       const reactionTime = Date.now() - this.mountTime;
-      this.props.correctKeyPressed(this.props.phase, event.code, correct, reactionTime);
+      this.props.correctKeyPressed(this.props.phase, this.props.trialIndex, event.code, correct && !this.props.forcedMistake, reactionTime);
+      this.props.nextPage(this.props.phase, this.props.trialIndex);
       this.cleanUp();
     }
   }
@@ -94,10 +94,14 @@ class KeyPressed extends React.Component {
 const mapStateToProps = (state, ownProps) => {
   const rule = getTrialRule(state);
   const trial = getTrial(state);
+  const trialIndex = getCurrentTrialIndex(state);
   const phase = getPhase(state);
+  const forcedMistake = trial.forceMistake;
 
   return {
   	forceKey: trial.forceKey,
+    forcedMistake,
+    trialIndex,
     checkCorrect: code => {
       const customCorrect = getCustomCorrectKey(state);
       if (customCorrect) {
@@ -112,11 +116,15 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    nextPage: (phase) => dispatch(getNextPageAction(phase)()),
-    correctKeyPressed: (phase, code, correct, reactionTime) => {
+    nextPage: (phase, trialIndex) => dispatch(getNextPageAction(phase)(trialIndex)),
+    correctKeyPressed: (phase, trialIndex, code, correct, reactionTime) => {
       dispatch(getStoreKeyReactionTimeAction(phase)(code, reactionTime));
       const wasReject = isReject[code];
      	dispatch(getStoreKeyStrokeAction(phase)(code, correct, wasReject));
+      const handleKeyStroke = getHandleKeyStroke(phase);
+      if (handleKeyStroke) {
+        dispatch(handleKeyStroke(trialIndex));
+      }
     }
   }
 }

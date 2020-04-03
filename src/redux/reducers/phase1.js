@@ -1,6 +1,7 @@
 import {
   NEXT_PAGE,
   MARK_FEEDBACK_SHOWN,
+  TEST_SHOW_FEEDBACK,
   actionReducers
 } from "../phase1actions";
 
@@ -9,36 +10,47 @@ import createTrials from '../../trials';
 import {phase1} from '../../images';
 import {PAGE_FLOW} from '../phase1constants.js';
 
+const numBlocks = process.env.NODE_ENV === 'development'? 1 : 10;
 const startPageIndex = 0;
 const initialState = {
   trialIndex: 0,
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
-  trials: createTrials(phase1, 10, phase1Block),
+  trials: createTrials(phase1, numBlocks, phase1Block),
 };
 
 const trialsBetweenFeedback = 5;
 
 export default function(state = initialState, action) {
+  const {trialIndex, pageIndex: curPage} = state;
+  const lastPage = curPage + 1 === PAGE_FLOW.length;
+
   switch (action.type) {
     case NEXT_PAGE:
-      const {pageIndex: curPage} = state;
-      const lastPage = curPage + 1 === PAGE_FLOW.length;
+      if (action.trialIndex !== state.trialIndex) {
+        return state;
+      }
       const nextPage = lastPage? 0: curPage + 1;
-      const trialIndex = lastPage && state.lastKeyCorrect? state.trialIndex + 1: state.trialIndex;
-      const showFeedback = lastPage && trialIndex > 0 && trialIndex % trialsBetweenFeedback === 0;
+      const nextTrialIndex = lastPage && state.lastKeyCorrect? trialIndex + 1: trialIndex;
 
       return {
         ...state,
         pageIndex: nextPage,
-        trialIndex,
-        showFeedback,
+        trialIndex: nextTrialIndex,
       };
     case MARK_FEEDBACK_SHOWN:
       return {
         ...state,
         showFeedback: false
+      };
+    case TEST_SHOW_FEEDBACK:
+      const isLastTrial = trialIndex === state.trials.length - 1;
+      const showFeedbackAfterTrial = trialIndex > 0 && (trialIndex + state.numMistakes) % trialsBetweenFeedback === 0;
+      const showFeedback = state.lastKeyCorrect && lastPage && (isLastTrial || showFeedbackAfterTrial);
+      return {
+        ...state,
+        showFeedback,
       };
     default:
       return actionReducers(state, action);

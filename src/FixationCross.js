@@ -1,14 +1,14 @@
 import React from 'react';
 import cross from './images/fixation_cross.png';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
-import {getPhase, getNextPageAction} from './redux/selectors';
+import {getPhase, getCurrentTrialIndex} from './redux/selectors';
 import {startTimeout} from './redux/action';
-
+import {getNextPageAction} from './redux/phaseactions';
 import { connect } from 'react-redux'
 
 class FixationCross extends React.Component {
   componentDidMount() {
-    this.props.startTimeout(this.props.phase);
+    this.props.startTimeout(this.props.phase, this.props.trialIndex);
   }
 
   render() {
@@ -31,14 +31,16 @@ class FixationCross extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   const phase = getPhase(state);
+  const trialIndex = getCurrentTrialIndex(state);
   return {
-    phase
+    phase,
+    trialIndex
   }
 };
 
 const mapDispathToProps = dispatch => {
   return {
-    startTimeout: (phase) => dispatch(startTimeout(getNextPageAction(phase),1000))
+    startTimeout: (phase, trialIndex) => dispatch(startTimeout(() => getNextPageAction(phase)(trialIndex),1000))
   }
 }
 

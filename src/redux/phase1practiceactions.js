@@ -1,10 +1,21 @@
-import {createReducer, getStoreKeyStrokeAction} from './storekeystrokeaction'
+import {createReducer as createKeyStrokeReducer, getStoreKeyStrokeAction} from './storekeystrokeaction';
+import {createReducer as createReactionTimeReducer, getStoreReactionTimeAction} from './storereactiontimeeaction';
+
 const DOMAIN = 'phase1Practice';
 export const NEXT_PAGE = DOMAIN + '/nextPage';
 
-export const keyStoreReducer = createReducer(DOMAIN);
-export const storeKeyPress = getStoreKeyStrokeAction(DOMAIN);
+const keyStoreReducer = createKeyStrokeReducer(DOMAIN);
+const keyReactionTimeReducer = createReactionTimeReducer(DOMAIN);
 
-export const nextPage = () => ({
-	type: NEXT_PAGE
+export const actionReducers = (state, action) => {
+	state = keyStoreReducer(state, action);
+	return keyReactionTimeReducer(state, action);
+}
+
+export const storeKeyPress = getStoreKeyStrokeAction(DOMAIN);
+export const storeKeyReactionTime = getStoreReactionTimeAction(DOMAIN);
+
+export const nextPage = (trialIndex) => ({
+	type: NEXT_PAGE,
+	trialIndex
 });

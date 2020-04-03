@@ -1,4 +1,4 @@
-import {phase1Practice, phase1, phase2, phase3} from './images';
+import {phase1Practice, phase1, phase2Practice, phase2, phase3} from './images';
 
 export function createPhase1Block(images) {
 	const fishImages = images.filter(img => img.type === 'Fish');
@@ -12,6 +12,18 @@ export function createPhase1Block(images) {
 	return fishImages.map(trialFactory).concat(crabImages.map(trialFactory));
 }
 
+function convertToPhase2Rule(arr) {
+	arr.forEach(trial => {
+		trial.rule = trial.rule === 'Accept'? 'Tax' : 'Subsidy';
+	});
+}
+
+function convertFromPhase2Rule(arr) {
+	arr.forEach(trial => {
+		trial.rule = trial.rule === 'Tax'? 'Accept' : 'Reject';
+	});
+}
+
 export function createPhase2Block(images, phase1Block) {
 	let phase1LookUp = {};
 
@@ -21,7 +33,11 @@ export function createPhase2Block(images, phase1Block) {
 
 	const newImages = images.filter(img => img.path in phase1Block === false);
 	const phase1Images = images.filter(img => img.path in phase1Block);
-	return createPhase1Block(newImages).concat(phase1Images.map(img => ({
+	const newImagesTrials = createPhase1Block(newImages);
+	newImagesTrials.forEach(trial => {
+		trial.rule = trial.rule === 'Accept'? 'Tax' : 'Subsidy';
+	});
+	return newImagesTrials.concat(phase1Images.map(img => ({
 			type: img.type,
 			rule: phase1LookUp[img.path],
 			image: img.path
@@ -86,7 +102,16 @@ export function createPhase3Block(images, phase1Block, phase2Block) {
 export const phasePractice1Block = createPhase1Block(phase1Practice);
 export const phase1Block = createPhase1Block(phase1);
 export const phase2Block = createPhase2Block(phase2, phase1Block);
-export const phase3Block = createPhase3Block(phase3, phase1Block, phase2Block);
+export const phase2PracticeBlock = createPhase2Block(phase2Practice, []);
+
+const phase2ConvertedBlock = phase2Block.map(trial => ({
+	...trial,
+	rule: trial.rule === 'Tax'? 'Accept' : 'Reject'
+}));
+
+export const phase3Block = createPhase3Block(phase3, phase1Block, phase2ConvertedBlock);
+
+console.log(phase2Block);
 
 function printBlocks() {
 	const re = /((Crab|Fish)\d)/;

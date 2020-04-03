@@ -33,10 +33,20 @@ class Feedback extends React.Component{
 	}
 
 	render(){
-		const {total, correct, missed} = this.props;
+		const {total, correct, missed, wrong} = this.props;
 		const correctBarStyle = {width: `${correct * 100 / total}%`};
-		const wrongBarStyle = {width: `${(total - correct - missed) * 100 / total}%`};
-		const missedBarStyle = {width: `${(missed) * 100 / total}%`};
+		const wrongBarStyle = {width: `${wrong * 100 / total}%`};
+		const missedBarStyle = {width: `${missed * 100 / total}%`};
+		const mistakeWarning = wrong === 0 && missed === 0? null : <span className = "TextEmphasis">Please try to do better in the next block</span>;
+		let missedBar;
+		if (missed > 0) {
+			missedBar = <dd className = "Bar">
+					<div className = "Percentage" style = {missedBarStyle}>
+						<span className = "ChartText">Missed</span>
+					</div>
+				</dd>;
+		}
+
 		return (
 			<FullScreenVerticalAlign>
 			    <span className="ImageVerticalAlignHelper"></span>
@@ -53,14 +63,13 @@ class Feedback extends React.Component{
 							<span className = "ChartText">Wrong</span>
 						</div>
 					</dd>
-					<dd className = "Bar">
-						<div className = "Percentage" style = {missedBarStyle}>
-							<span className = "ChartText">Missed</span>
-						</div>
-					</dd>
+					{missedBar}
 				</dl>
 				<br/>
-				<span className = "TextEmphasis">Please try to do better in the next block</span>
+				{mistakeWarning}
+				<br/>
+				<br/>
+				<span className = "TextEmphasis">Press any key to continue</span>
 			</FullScreenVerticalAlign>
 		);
 	}
@@ -68,12 +77,13 @@ class Feedback extends React.Component{
 
 
 const mapStateToProps = (state, ownProps) => {
-  const {total, numCorrect, numMissed} = getFeedbackInfo(state);
+  const {total, numCorrect, numMissed, numMistakes} = getFeedbackInfo(state);
   const phase = getPhase(state);
   return {
     total,
     correct: numCorrect,
     missed: (numMissed || 0),
+    wrong :numMistakes,
     phase
   }
 };

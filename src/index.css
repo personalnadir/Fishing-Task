@@ -36,6 +36,10 @@ code {
   border: 5px solid #f60;
 }
 
+.Outline.Teal {
+  border: 5px solid aqua;
+}
+
 .Outline.Black {
   border: 5px solid black;
 }
@@ -301,8 +305,216 @@ dt {
   text-align: center;
 }
 
+.TextEmphasis.Small {
+  font-size: 1.2em;
+  text-align: center;
+}
+
 .TextTitle {
   font-size:4em;
   width: 100%;
   position: relative;
 }
+
+.TextSuperLarge {
+  font-size:6em;
+  width: 100%;
+  position: relative;
+}
+
+.InstructionTextBullets {
+  text-align:left;
+  font-size: 2em;
+}
+
+.InstructionTextBullets li {
+  margin-bottom: 1em;
+}
+
+.InstructionTitle {
+  border-radius: 25px;
+  border: 5px solid #6f8197;
+  font-size: 5em;
+  padding:20px;
+}
+
+.InstructionRules {
+  width: 100%;
+  height: 25%;
+}
+
+.InstructionImages {
+  padding-left: calc(50% - 337px/2);
+}
+
+.InstructionPage {
+  margin: 1em;
+  margin-top: 3em;
+  width: 70em;
+  padding-left: calc(50% - 70em/2);
+}
+
+.CatchButton {
+  width: 100%;
+}
+
+.SmallRule {
+  margin-top: 20px;
+  display: inline-block;
+  text-align: center;
+  border-radius: 25px;
+  height: calc(60px * 2);
+  line-height: calc(60px * 2);
+  width: calc(160px * 2);
+  margin-left: calc(50% - 160px);
+  font-size: 50px;
+  color: white;
+  vertical-align: middle;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+.SmallRule.Left {
+  margin-left: calc(50% - (160px * 2) - 20px);
+  margin-right: 20px;
+}
+
+.SmallRule.Right {
+  margin-left: 20px;
+}
+
+.SmallRule.Accept {
+  border: 5px solid #5d5dfc;
+  background-color: #5d5dfc;
+  background: #5d5dfc; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #5d5dfc 0%, #7db9e8 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #5d5dfc 0%,#7db9e8 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #5d5dfc 0%,#7db9e8 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5dfc', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.SmallRule.Reject {
+  border: 5px solid #f76519;
+  background-color: #f76519;
+  background: #f76519; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, #f76519 0%, #fc0 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, #f76519 0%,#fc0 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, #f76519 0%,#fc0 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f76519', endColorstr='#fc0',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.SmallRule.Free {
+  border: 5px solid cyan;
+  background-color: cyan;
+  background: cyan; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, cyan 0%, #cff 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, cyan 0%,#cff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, cyan 0%,#cff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='cyan', endColorstr='#cff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+
+.Columns {
+  padding-top:2em;
+  padding-bottom:2em;
+  justify-content: center;
+  text-align: center;
+  width: 33%;
+  height:500px;
+  line-height: 500px;
+  float: left;
+  vertical-align: middle;
+}
+
+.ColumnTextSpan {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 38px; /* <-- adjust this */
+}
+
+.ExtraEmphasis {
+  color: darkblue;
+}
+
+.ContinueButton {
+  color: white;
+  font-size: 2em;
+  background-color: #06c;
+  border-radius: 20px;
+  width: 200px;
+  height: 60px;
+  border: 2px solid #B4FFFFFF;
+  margin-bottom: 4em;
+}
+
+.ContinueButton:hover {
+  background-color: #036;
+}
+
+.SmallBox {
+  left:calc(50% - 200px/2);
+  width : 200px;
+  height: 200px;
+  position: relative;
+}
+
+.SmallImage {
+  width: 200px;
+  height: 200px;
+}
+
+.SmallCross{
+  width: 50px;
+  height: 50px;
+  padding-left: calc(50% - 50px/2);
+}
+
+.RightLegend {
+  display: inline-block;
+  left: calc(200px + 0.5em);
+  top: calc(-100px - 0.5em);
+  position: relative;
+}
+
+.QuarterWidth {
+  width: 25%;
+  display: inline-block;
+}
+
+.FifteenthWidth {
+  width: 15%;
+  display: inline-block;
+}
+
+.HalfWidth {
+  width: 40%;
+  display: inline-block;
+}
+
+
+.JustifyRight {
+  justify-content: right;
+  text-align: right;
+}
+
+.JustifyCentre {
+  justify-content: center;
+  text-align: center;
+}
+
+.MiddleAlignment {
+  vertical-align: middle;
+}
+
+.TopMargin {
+  margin-top:1em;
+}
+
+.Centre {
+  margin-left: calc(35%);
+  position:relative;
+}
+
+.Grey {
+  color: gray;
+}
+

@@ -3,9 +3,12 @@ import createPerDomainActionAndReducer from './createPerDomainActionAndReducer';
 const actionPostfix = '/storeKeystroke';
 const handleStateChange = (state, action) => {
 	const curCorrect = state.numCorrect || 0;
+	const curMistakes = state.numMistakes || 0;
+
 	return {
 		...state,
 		numCorrect: action.correct? curCorrect + 1: curCorrect,
+		numMistakes: !action.correct? curMistakes + 1: curMistakes,
 		lastKeyCorrect: action.correct,
 		lastKeyReject: action.wasReject
 	};

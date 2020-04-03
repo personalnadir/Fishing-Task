@@ -1,57 +1,22 @@
 import { createSelector } from 'reselect'
-import {PHASE_FLOW, PHASE1, PHASE2, PHASE3, PHASE1_PRACTICE} from './globalconstants';
+import {
+	PHASE_FLOW,
+	PHASE1_INSTRUCTIONS,
+	PHASE1_PRACTICE,
+	PHASE1,
+	PHASE2_PRACTICE,
+	PHASE2,
+	PHASE3,
+} from './globalconstants';
 import {PAGE_FLOW as phase1PageFlow, PAGE_FLOW_BREAK} from './phase1constants';
-import {PAGE_FLOW as phase2PageFlow} from './phase2constants';
+import {PAGE_FLOW as phase2PageFlow, APPROACH_REWARDS, AVOIDANCE_REWARDS} from './phase2constants';
 import {PAGE_FLOW as phase3PageFlow} from './phase3constants';
 import {PAGE_FLOW as phase1PracticePageFlow} from './phase1practiceconstants';
-
-
-import {
-	nextPage as phase1NextPage,
-	storeKeyPress as phase1StoreKeyPress,
-	storeKeyReactionTime as phase1StoreReactionTime,
-} from './phase1actions';
-
-import {
-	nextPage as phase2NextPage,
-	storeKeyPress as phase2StoreKeyPress,
-	storeKeyReactionTime as phase2StoreReactionTime,
-} from './phase2actions';
-
-import {
-	nextPage as phase3NextPage,
-	storeKeyPress as phase3StoreKeyPress,
-	storeKeyReactionTime as phase3StoreReactionTime,
-} from './phase3actions';
-
-import {
-	nextPage as phase1PracticeNextPage,
-	storeKeyPress as phase1PracticeStoreKeyPress
-} from './phase1practiceactions';
-
-const nextPageLookUp = {
-  [PHASE1]: phase1NextPage,
-  [PHASE2]: phase2NextPage,
-  [PHASE3]: phase3NextPage,
-  [PHASE1_PRACTICE]: phase1PracticeNextPage,
-}
-
-const storeKeyReactionTimeLookUp = {
-  [PHASE1]: phase1StoreReactionTime,
-  [PHASE2]: phase2StoreReactionTime,
-  [PHASE3]: phase3StoreReactionTime,
-}
-
-const storeKeyPressLookUp = {
-  [PHASE1]: phase1StoreKeyPress,
-  [PHASE2]: phase2StoreKeyPress,
-  [PHASE3]: phase3StoreKeyPress,
-  [PHASE1_PRACTICE]: phase1PracticeStoreKeyPress,
-}
 
 const pageFlowLookup = {
 	[PHASE1]: phase1PageFlow,
 	[PHASE2]: phase2PageFlow,
+	[PHASE2_PRACTICE]: phase2PageFlow,
 	[PHASE3]: phase3PageFlow,
 	[PHASE1_PRACTICE]: phase1PracticePageFlow,
 }
@@ -59,10 +24,6 @@ const pageFlowLookup = {
 const pageFlowBreakOutConditions = {
 	[PHASE1]: PAGE_FLOW_BREAK
 }
-
-const getNextPageAction = (phase) => nextPageLookUp[phase];
-const getStoreKeyStrokeAction = (phase) => storeKeyPressLookUp[phase];
-const getStoreKeyReactionTimeAction = (phase) => storeKeyReactionTimeLookUp[phase];
 
 const getPhaseIndex = ({global}) => global.phaseIndex;
 const getPhase = createSelector(getPhaseIndex, index => PHASE_FLOW[index]);
@@ -81,11 +42,30 @@ const isFeedbackPage = (state) => getPhaseState(state).pageIndex === getPageFlow
 const getWasCorrect = (state) => getPhaseState(state).lastKeyCorrect;
 const getWasLate = (state) => getPhaseState(state).wasLate;
 const getWasReject = (state) => getPhaseState(state).lastKeyReject;
-const getEarnings = (state) => getPhaseState(state).earnings;
+const getEarnings = (state) => state[PHASE2].earnings;
 
 const getTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => trials[index]);
+const getReward = createSelector(getTrial, getWasCorrect, getWasLate, (trial, correct, late)=> {
+	const rewardLookUp = trial.rule === 'Tax' ? AVOIDANCE_REWARDS: APPROACH_REWARDS;
+
+	let reward;
+	if (correct) {
+		reward = rewardLookUp['correct'];
+	} else {
+		reward = rewardLookUp['incorrect'];
+	}
+	if (typeof reward === 'object') {
+		reward = reward[late? "late" : 'timely'];
+	}
+	return reward;
+});
+
+const getInstructionPage = (state) => state[PHASE1_INSTRUCTIONS].page;
+
 const getPageIndex = state => getPhaseState(state).pageIndex;
 const getPage = createSelector(getPageIndex, getPageFlow, getPageFlowBreak, (pageIndex, pageFlow, breakOutPage) => breakOutPage? breakOutPage : pageFlow[pageIndex]);
+const isLastTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => index >= trials.length - 1);
+const isLastPage = createSelector(getPageIndex, getPageFlow, (pageIndex, pageFlow) => pageIndex + 1 === pageFlow.length);
 
 const getTrialRule = createSelector(getTrial, trial => {
 	const forceMistake = trial.forceMistake;
@@ -94,10 +74,18 @@ const getTrialRule = createSelector(getTrial, trial => {
 });
 
 const getFeedbackInfo = createSelector(getPhaseState, getCurrentTrialIndex, (state, total) => ({
-	total,
+	total:(total + state.numMistakes),
 	numCorrect: state.numCorrect,
-	numMissed: 0
+	numMissed: 0,
+	numMistakes: state.numMistakes
 }));
+
+const getTrialsCompleted = createSelector(getPhase, getPhaseState, getCurrentTrialIndex, (phase, state, total) => {
+	if (phase !== PHASE1) {
+		return total;
+	}
+	return total + state.numMistakes;
+});
 
 const getCustomCorrectKey = createSelector(getPhaseState, getTrial, (state, trial) => {
 	if (!state.keyLookUp) {
@@ -107,21 +95,37 @@ const getCustomCorrectKey = createSelector(getPhaseState, getTrial, (state, tria
 	return state.keyLookUp[trial.image];
 });
 
+const showPhase1FeedBack = phaseState => phaseState.showFeedback;
+
+const canProgressToNextPhase = createSelector(getPhase, showPhase1FeedBack, getWasCorrect, (phase, showingFeedback, wasCorrect) => {
+	if (phase !== PHASE1) {
+		return true;
+	}
+
+	return wasCorrect && !showingFeedback;
+});
+
+const userInputForLastTrial = createSelector(getPhaseState, getCurrentTrialIndex, (state, trialIndex) => state.lastKeyPressOnTrial === trialIndex - 1);
 
 export default getTrial;
 export {
-	isFeedbackPage,
-	getPhase,
-	getPage,
-	getNextPageAction,
-	getTrialRule,
-	getStoreKeyStrokeAction,
-	getStoreKeyReactionTimeAction,
-	getWasCorrect,
-	getWasLate,
-	getFeedbackInfo,
+	canProgressToNextPhase,
+	getCurrentTrialIndex,
 	getCustomCorrectKey,
 	getEarnings,
-	getWasReject
+	getFeedbackInfo,
+	getInstructionPage,
+	getPage,
+	getPhase,
+	getReward,
+	getTrialRule,
+	getTrialsCompleted,
+	getWasCorrect,
+	getWasLate,
+	getWasReject,
+	isFeedbackPage,
+	isLastPage,
+	isLastTrial,
+	userInputForLastTrial,
 };
 

@@ -3,7 +3,7 @@ import {
 } from "../globalactions";
 
 const initialState = {
-  phaseIndex: 5,
+  phaseIndex: 0,
 };
 
 export default function(state = initialState, action) {
