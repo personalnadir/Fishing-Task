@@ -62,7 +62,7 @@ function forceKeys(trials, forFirst) {
 
 		const highlightKey = i < forFirst;
 		trial.forceMistake = mistakes[i];
-		trial.forceKey = true;
+		trial.forceKey = highlightKey;
 		trial.highlightKey = highlightKey;
 		trials[i] = trial;
 	}
