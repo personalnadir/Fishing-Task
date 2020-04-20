@@ -3,6 +3,7 @@ import Phase1Practice from './Phase1Practice';
 import Phase1 from './Phase1';
 import Phase2 from './Phase2';
 import Phase3 from './Phase3';
+import Questionnaires from './Questionnaires';
 import Instructions from './Instructions';
 import { connect } from 'react-redux';
 import * as global from './redux/globalconstants';
@@ -25,6 +26,8 @@ function Global({phase}) {
 			return <Phase2 />;
 		case global.PHASE3:
 			return <Phase3 />;
+		case global.QUESTIONNAIRE:
+			return <Questionnaires />;
 		default:
 			return null;
 	}

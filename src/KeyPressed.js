@@ -14,6 +14,8 @@ import {
   getHandleKeyStroke
 } from './redux/phaseactions';
 
+import KeyListener from './KeyListener';
+
 const keyCodes = {'KeyC': true, 'KeyX': true, 'KeyN': true, 'KeyM': true};
 const ruleToKey = {
    "Accept Fish":  'KeyX',
@@ -34,60 +36,36 @@ export function getKeyCodes() {
 }
 
 class KeyPressed extends React.Component {
-
   constructor(props) {
     super(props);
-    this.state = {keyPressed : null};
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
-    this.allowKeyPress = false;
   }
 
-  handleKeyEvent(event) {
-    if (!this.allowKeyPress) {
-      return;
-    }
-    // We don't want to mess with the browser's shortcuts
-    if (event.ctrlKey || event.altKey || event.metaKey || event.shiftKey) {
-      return;
-    }
-    const correct =  this.props.checkCorrect(event.code);
+
+  handleKeyEvent(code) {
+    const correct = this.props.checkCorrect(code);
 
   	let dispatchPressed = false;
     if (this.props.forceKey) {
       dispatchPressed = correct;
     } else {
-      dispatchPressed = keyCodes[event.code];
+      dispatchPressed = keyCodes[code];
     }
 
     if (dispatchPressed) {
       const reactionTime = Date.now() - this.mountTime;
-      this.props.correctKeyPressed(this.props.phase, this.props.trialIndex, event.code, correct && !this.props.forcedMistake, reactionTime);
+      this.props.correctKeyPressed(this.props.phase, this.props.trialIndex, code, correct && !this.props.forcedMistake, reactionTime);
       this.props.nextPage(this.props.phase, this.props.trialIndex);
-      this.cleanUp();
+      return true;
     }
   }
 
-  cleanUp() {
-    this.allowKeyPress = false;
-    window.removeEventListener('keydown', this.handleKeyEvent);
-  }
-
   componentDidMount() {
-    window.addEventListener('keydown', this.handleKeyEvent);
-    this.allowKeyPress = true;
     this.mountTime = Date.now();
   }
 
-  componentWillUnmount() {
-    this.cleanUp();
-  }
-
   render() {
-    return (
-      <div className="Hidden">
-        {this.state.keyPressed} and I {this.state.care? 'care' : 'don\'t care'}
-      </div>
-    );
+    return <KeyListener onKeyEvent = {this.handleKeyEvent} />
   }
 }
 

@@ -518,3 +518,143 @@ dt {
   color: gray;
 }
 
+
+.GalleryImage {
+  width: 100%;
+
+}
+.GalleryTable {
+  width: 100%;
+}
+.GalleryCell {
+  max-width: 20%;
+}
+
+.QuestionnaireGalleryCell {
+  border: 1px solid black;
+  border-radius: 2%;
+  background-color: white;
+  padding: 3px;
+  filter: drop-shadow(2px 2px 5px grey);
+  margin: 1em;
+}
+
+.QuestionnaireGalleryCell.highlighted {
+  border: 4px solid green;
+  padding:0;
+  filter: drop-shadow(0px 0px 20px green);
+}
+
+
+.QuestionnaireGalleryCell.notselected {
+  opacity: 0.2;
+}
+
+.ConfidenceSliderContainer {
+  margin-top: 4em;
+  margin-bottom: 4em;
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.ConfidenceSlider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.ConfidenceSlider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 8.35px 0;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 13.3px;
+  cursor: pointer;
+  box-shadow: 1.4px 1.4px 1.7px #ffb2df, 0px 0px 1.4px #ffccea;
+  background: #1291d8;
+  border-radius: 25px;
+  border: 2.3px solid #dbd58f;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 4.1px 4.1px 7.2px rgba(39, 44, 177, 0.68), 0px 0px 4.1px rgba(44, 49, 198, 0.68);
+  border: 5px solid #ffcdff;
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  background: #ffff7d;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -10.65px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #97d4f6;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 13.3px;
+  cursor: pointer;
+  box-shadow: 1.4px 1.4px 1.7px #ffb2df, 0px 0px 1.4px #ffccea;
+  background: #1291d8;
+  border-radius: 25px;
+  border: 2.3px solid #dbd58f;
+}
+input[type=range]::-moz-range-thumb {
+  box-shadow: 4.1px 4.1px 7.2px rgba(39, 44, 177, 0.68), 0px 0px 4.1px rgba(44, 49, 198, 0.68);
+  border: 5px solid #ffcdff;
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  background: #ffff7d;
+  cursor: pointer;
+}
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 13.3px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+  background: #052c41;
+  border: 2.3px solid #dbd58f;
+  border-radius: 50px;
+  box-shadow: 1.4px 1.4px 1.7px #ffb2df, 0px 0px 1.4px #ffccea;
+}
+input[type=range]::-ms-fill-upper {
+  background: #1291d8;
+  border: 2.3px solid #dbd58f;
+  border-radius: 50px;
+  box-shadow: 1.4px 1.4px 1.7px #ffb2df, 0px 0px 1.4px #ffccea;
+}
+input[type=range]::-ms-thumb {
+  box-shadow: 4.1px 4.1px 7.2px rgba(39, 44, 177, 0.68), 0px 0px 4.1px rgba(44, 49, 198, 0.68);
+  border: 5px solid #ffcdff;
+  height: 30px;
+  width: 30px;
+  border-radius: 8px;
+  background: #ffff7d;
+  cursor: pointer;
+  height: 13.3px;
+}
+input[type=range]:focus::-ms-fill-lower {
+  background: #1291d8;
+}
+input[type=range]:focus::-ms-fill-upper {
+  background: #97d4f6;
+}

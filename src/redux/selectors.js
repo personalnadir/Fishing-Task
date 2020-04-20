@@ -7,11 +7,13 @@ import {
 	PHASE2_PRACTICE,
 	PHASE2,
 	PHASE3,
+	QUESTIONNAIRE
 } from './globalconstants';
 import {PAGE_FLOW as phase1PageFlow, PAGE_FLOW_BREAK} from './phase1constants';
 import {PAGE_FLOW as phase2PageFlow, APPROACH_REWARDS, AVOIDANCE_REWARDS} from './phase2constants';
 import {PAGE_FLOW as phase3PageFlow} from './phase3constants';
 import {PAGE_FLOW as phase1PracticePageFlow} from './phase1practiceconstants';
+import {PAGE_FLOW as questionnairePageFlow} from './questionnaireconstants';
 
 const pageFlowLookup = {
 	[PHASE1]: phase1PageFlow,
@@ -19,6 +21,7 @@ const pageFlowLookup = {
 	[PHASE2_PRACTICE]: phase2PageFlow,
 	[PHASE3]: phase3PageFlow,
 	[PHASE1_PRACTICE]: phase1PracticePageFlow,
+	[QUESTIONNAIRE]: questionnairePageFlow,
 }
 
 const pageFlowBreakOutConditions = {
