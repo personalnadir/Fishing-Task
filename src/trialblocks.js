@@ -111,8 +111,6 @@ const phase2ConvertedBlock = phase2Block.map(trial => ({
 
 export const phase3Block = createPhase3Block(phase3, phase1Block, phase2ConvertedBlock);
 
-console.log(phase2Block);
-
 function printBlocks() {
 	const re = /((Crab|Fish)\d)/;
 	let trials = {};
