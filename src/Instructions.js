@@ -11,6 +11,7 @@ import InstructionPageSeven from './InstructionPageSeven';
 import InstructionPageEight from './InstructionPageEight';
 import InstructionPageNine from './InstructionPageNine';
 import InstructionPageTen from './InstructionPageTen';
+import InstructionPageEnd from './InstructionPageEnd';
 import InstructionPageEndOfPractice from './InstructionPageEndOfPractice';
 import InstructionPageStartOfPractice from './InstructionPageStartOfPractice';
 import InstructionPhase1Start from './InstructionPhase1Start';
@@ -36,7 +37,8 @@ const pages = [
 	{page: <Earnings />},
 	{page: <InstructionPhase3Start />},
 	{page: <InstructionPageNine />},
-	{page: <InstructionPageTen />, returnTask: true}
+	{page: <InstructionPageTen />, returnTask: true},
+	{page: <InstructionPageEnd />, endTask: true}
 ];
 
 class Instructions extends React.Component{
@@ -47,10 +49,17 @@ class Instructions extends React.Component{
 	render() {
 		const {page, nextPage} = this.props;
 		const instructionPage = pages[page];
+		const buttonClick = () => {
+			if (instructionPage.endTask) {
+				window.confirm("You can close the window, thanks!");
+				return;
+			}
+			nextPage(instructionPage.returnTask);
+		};
 		return (
 			<div>
 				{instructionPage.page}
-				<button onClick={() => nextPage(instructionPage.returnTask)} className="ContinueButton">Continue</button>
+				<button onClick={buttonClick} className="ContinueButton">Continue</button>
 			</div>
 		);
 	}

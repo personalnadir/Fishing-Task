@@ -16,6 +16,7 @@ function Global({phase}) {
 		case global.PHASE1_INSTRUCTIONS:
 		case global.PHASE2_INSTRUCTIONS:
 		case global.PHASE3_INSTRUCTIONS:
+		case global.PHASE_END_INSTRUCTIONS:
 			return <Instructions />;
 		case global.PHASE1_PRACTICE:
 			return <Phase1Practice />;
