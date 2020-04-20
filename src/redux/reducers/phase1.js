@@ -14,6 +14,7 @@ const numBlocks = process.env.NODE_ENV === 'development'? 1 : 10;
 const startPageIndex = 0;
 const initialState = {
   trialIndex: 0,
+  trialLastFeedbackShown: 0,
   numMissed: 0,
   numCorrect: 0,
   pageIndex : startPageIndex,
@@ -46,11 +47,15 @@ export default function(state = initialState, action) {
       };
     case TEST_SHOW_FEEDBACK:
       const isLastTrial = trialIndex === state.trials.length - 1;
-      const showFeedbackAfterTrial = trialIndex > 0 && (trialIndex + state.numMistakes) % trialsBetweenFeedback === 0;
-      const showFeedback = state.lastKeyCorrect && lastPage && (isLastTrial || showFeedbackAfterTrial);
+      const trialAttempts = trialIndex + state.numMistakes;
+      const showFeedbackAfterTrial = trialIndex > 0 && trialAttempts - state.trialLastFeedbackShown >= trialsBetweenFeedback;
+      const showFeedback = state.lastKeyCorrect && (isLastTrial || showFeedbackAfterTrial);
+      const trialLastFeedbackShown = showFeedback? trialAttempts : state.trialLastFeedbackShown;
+
       return {
         ...state,
         showFeedback,
+        trialLastFeedbackShown
       };
     default:
       return actionReducers(state, action);
