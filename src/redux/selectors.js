@@ -67,8 +67,14 @@ const getInstructionPage = (state) => state[PHASE1_INSTRUCTIONS].page;
 
 const getPageIndex = state => getPhaseState(state).pageIndex;
 const getPage = createSelector(getPageIndex, getPageFlow, getPageFlowBreak, (pageIndex, pageFlow, breakOutPage) => breakOutPage? breakOutPage : pageFlow[pageIndex]);
-const isLastTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => index >= trials.length - 1);
-const isLastPage = createSelector(getPageIndex, getPageFlow, (pageIndex, pageFlow) => pageIndex + 1 === pageFlow.length);
+const isLastTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => trials && index >= trials.length - 1);
+const isLastPage = createSelector(getPhase, getPageIndex, getPageFlow, (phase, pageIndex, pageFlow) => {
+	let offset = 1;
+	if (phase === PHASE3) {
+		offset = 2;
+	}
+	return pageIndex + offset >= pageFlow.length
+});
 
 const getTrialRule = createSelector(getTrial, trial => {
 	const forceMistake = trial.forceMistake;
