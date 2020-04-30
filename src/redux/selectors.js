@@ -106,6 +106,14 @@ const getCustomCorrectKey = createSelector(getPhaseState, getTrial, (state, tria
 	return state.keyLookUp[trial.image];
 });
 
+const getCorrectKeyForTrial = createSelector(getPhaseState, getTrial, getAcceptColour, getTrialRule, (state, trial, acceptColour, rule) => {
+	if (!state.keyLookUp) {
+		return RULE_TO_KEY[acceptColour][rule];
+	}
+
+	return state.keyLookUp[trial.image];
+})
+
 const showPhase1FeedBack = phaseState => phaseState.showFeedback;
 
 const canProgressToNextPhase = createSelector(getPhase, showPhase1FeedBack, getWasCorrect, (phase, showingFeedback, wasCorrect) => {
@@ -122,8 +130,8 @@ export default getTrial;
 export {
 	canProgressToNextPhase,
 	getAcceptColour,
+	getCorrectKeyForTrial,
 	getCurrentTrialIndex,
-	getCustomCorrectKey,
 	getEarnings,
 	getFeedbackInfo,
 	getInstructionPage,

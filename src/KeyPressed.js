@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import getTrial, {
   getPhase,
   getTrialRule,
-  getCustomCorrectKey,
+  getCorrectKeyForTrial,
   getCurrentTrialIndex
 } from './redux/selectors';
 
@@ -100,12 +100,8 @@ const mapStateToProps = (state, ownProps) => {
     trialIndex,
     correctColour,
     checkCorrect: code => {
-      const customCorrect = getCustomCorrectKey(state);
-      if (customCorrect) {
-        return customCorrect === code;
-      } else {
-        return ruleToKey[rule] === code;
-      }
+      const correctKey = getCorrectKeyForTrial(state);
+      return correctKey === code;
     },
     phase,
   }
