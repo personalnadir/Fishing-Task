@@ -25,3 +25,18 @@ export const PHASE_FLOW = [
 	QUESTIONNAIRE,
 	PHASE_END_INSTRUCTIONS
 ];
+
+export const RULE_TO_KEY = {
+  Blue: {
+    "Accept Fish": 'KeyX',
+    "Reject Fish": 'KeyC',
+    "Reject Crab": 'KeyN',
+    "Accept Crab": 'KeyM'
+  },
+  Orange: {
+    "Reject Fish": 'KeyX',
+    "Accept Fish": 'KeyC',
+    "Accept Crab": 'KeyN',
+    "Reject Crab": 'KeyM'
+  }
+};

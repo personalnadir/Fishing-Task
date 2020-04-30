@@ -120,7 +120,7 @@ code {
   text-shadow: -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 2px 2px 0 #000;
 }
 
-.Rule.Accept {
+.Rule.Blue {
   border: 5px solid #5d5dfc;
   background-color: #5d5dfc;
   background: #5d5dfc; /* Old browsers */
@@ -130,7 +130,7 @@ code {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5dfc', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.Rule.Reject {
+.Rule.Orange {
   border: 5px solid #f76519;
   background-color: #f76519;
   background: #f76519; /* Old browsers */
@@ -228,11 +228,11 @@ code {
   z-index: 2;
 }
 
-.KeyHighlight.Reject {
+.KeyHighlight.Orange {
   border: 5px solid #f76519;
 }
 
-.KeyHighlight.Accept {
+.KeyHighlight.Blue {
   border: 5px solid #06f;
 }
 
@@ -382,7 +382,7 @@ dt {
   margin-left: 20px;
 }
 
-.SmallRule.Accept {
+.SmallRule.Blue {
   border: 5px solid #5d5dfc;
   background-color: #5d5dfc;
   background: #5d5dfc; /* Old browsers */
@@ -392,7 +392,7 @@ dt {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5d5dfc', endColorstr='#7db9e8',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
 
-.SmallRule.Reject {
+.SmallRule.Orange {
   border: 5px solid #f76519;
   background-color: #f76519;
   background: #f76519; /* Old browsers */

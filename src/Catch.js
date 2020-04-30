@@ -13,8 +13,15 @@ import getTrial, {
 } from './redux/selectors';
 import { progressThroughCurrentTrial }  from './redux/trialactions';
 import KeyPressed from './KeyPressed';
-import {PHASE1_PRACTICE, PHASE1, PHASE2, PHASE2_PRACTICE, PHASE3} from './redux/globalconstants';
+import {
+  PHASE1_PRACTICE,
+  PHASE1,
+  PHASE2,
+  PHASE2_PRACTICE,
+  PHASE3
+} from './redux/globalconstants';
 import {Howl, Howler} from 'howler';
+import {getRejectColour, getAcceptColour} from './redux/colourselectors';
 
 class Catch extends React.Component {
   constructor(props) {
@@ -58,7 +65,6 @@ class Catch extends React.Component {
       }
     }
 
-
     if (!this.props.timeout) {
       return;
     }
@@ -87,9 +93,9 @@ class Catch extends React.Component {
 
     let isTax;
     if (rule === 'Reject') {
-      decoration += " Orange";
+      decoration += " " + this.props.rejectColour;
     } else if (rule === 'Accept') {
-      decoration += " Blue";
+      decoration += " " + this.props.acceptColour;
     } else if (rule === 'FreeChoice') {
       decoration += " Teal";
     } else {
@@ -215,7 +221,9 @@ const mapStateToProps = (state, ownProps) => {
     phase,
     continueButton,
     feedbackSfx,
-    pleaseRespondSfx
+    pleaseRespondSfx,
+    acceptColour: getAcceptColour(state),
+    rejectColour: getRejectColour(state),
   }
 };
 

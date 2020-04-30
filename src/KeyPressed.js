@@ -13,22 +13,39 @@ import {
   getStoreKeyReactionTimeAction,
   getHandleKeyStroke
 } from './redux/phaseactions';
+import {getAcceptColour} from './redux/colourselectors';
 
 import KeyListener from './KeyListener';
 
 const keyCodes = {'KeyC': true, 'KeyX': true, 'KeyN': true, 'KeyM': true};
 const ruleToKey = {
-   "Accept Fish":  'KeyX',
-   "Reject Fish":  'KeyC',
-   "Reject Crab":  'KeyN',
-   "Accept Crab":  'KeyM'
-}
+  Blue: {
+    "Accept Fish": 'KeyX',
+    "Reject Fish": 'KeyC',
+    "Reject Crab": 'KeyN',
+    "Accept Crab": 'KeyM'
+  },
+  Orange: {
+    "Reject Fish": 'KeyX',
+    "Accept Fish": 'KeyC',
+    "Accept Crab": 'KeyN',
+    "Reject Crab": 'KeyM'
+  }
+};
 
 const isReject = {
+  Blue: {
    'KeyX': false,
    'KeyC': true,
    'KeyN': true,
    'KeyM': false
+  },
+  Orange: {
+   'KeyX': true,
+   'KeyC': false,
+   'KeyN': false,
+   'KeyM': true
+  }
 }
 
 export function getKeyCodes() {
@@ -54,7 +71,7 @@ class KeyPressed extends React.Component {
 
     if (dispatchPressed) {
       const reactionTime = Date.now() - this.mountTime;
-      this.props.correctKeyPressed(this.props.phase, this.props.trialIndex, code, correct && !this.props.forcedMistake, reactionTime);
+      this.props.correctKeyPressed(this.props.phase, this.props.trialIndex, this.props.correctColour, code, correct && !this.props.forcedMistake, reactionTime);
       this.props.nextPage(this.props.phase, this.props.trialIndex);
       return true;
     }
@@ -75,11 +92,13 @@ const mapStateToProps = (state, ownProps) => {
   const trialIndex = getCurrentTrialIndex(state);
   const phase = getPhase(state);
   const forcedMistake = trial.forceMistake;
+  const correctColour = getAcceptColour(state);
 
   return {
   	forceKey: trial.forceKey,
     forcedMistake,
     trialIndex,
+    correctColour,
     checkCorrect: code => {
       const customCorrect = getCustomCorrectKey(state);
       if (customCorrect) {
@@ -95,9 +114,9 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     nextPage: (phase, trialIndex) => dispatch(getNextPageAction(phase)(trialIndex)),
-    correctKeyPressed: (phase, trialIndex, code, correct, reactionTime) => {
+    correctKeyPressed: (phase, trialIndex, correctColour, code, correct, reactionTime) => {
       dispatch(getStoreKeyReactionTimeAction(phase)(code, reactionTime));
-      const wasReject = isReject[code];
+      const wasReject = isReject[correctColour][code];
      	dispatch(getStoreKeyStrokeAction(phase)(code, correct, wasReject));
       const handleKeyStroke = getHandleKeyStroke(phase);
       if (handleKeyStroke) {

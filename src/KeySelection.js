@@ -5,6 +5,7 @@ import {getQuestionnaireTrialBlock} from './redux/questionnaireselectors'
 import {nextPage, nextTrialBlock} from './redux/questionnaireactions';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import KeyListener from './KeyListener';
+import {getAcceptColour, getRejectColour} from './redux/colourselectors';
 import {phase1} from './images';
 import {
 	PAGE_KEY_SELECT_SUBSIDY,
@@ -42,9 +43,9 @@ class KeySelection extends React.Component {
 		if (this.props.showTrialColour){
 			decoration = "Filled";
 			if (rule === 'Reject') {
-			  decoration += " Orange";
+			  decoration += " " + this.props.rejectColour;
 			} else if (rule === 'Accept') {
-			  decoration += " Blue";
+			  decoration += " " + this.props.acceptColour;
 			}
 		}
 
@@ -52,6 +53,8 @@ class KeySelection extends React.Component {
 			<FullScreenVerticalAlign>
 			 	<KeyListener onKeyEvent = {this.handleKeyEvent} />
 				<div className="TextEmphasis">{this.props.instruction}</div>
+				<br />
+				<br />
 				<div id="catchcontainer">
 		            <span className="ImageVerticalAlignHelper"></span>
 		            <img
@@ -89,7 +92,9 @@ const mapStateToProps = (state, ownProps) => {
 		showTrialColour: page === PAGE_KEY_SELECT_OUTCOME,
 		image: block.image,
 		rule: block.rule,
-		instruction: instructions[page]
+		instruction: instructions[page],
+		acceptColour: getAcceptColour(state),
+		rejectColour: getRejectColour(state),
 	}
 };
 

@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import {startTimeout} from './redux/action';
 import getTrial, {getPhase, getCurrentTrialIndex} from './redux/selectors';
+import {getRejectColour, getAcceptColour} from './redux/colourselectors';
 import {getNextPageAction} from './redux/phaseactions';
 
 class Rule extends React.Component {
@@ -17,11 +18,11 @@ class Rule extends React.Component {
 		let text;
 		switch (type) {
 			case 'Accept':
-				className = 'Rule Accept';
+				className = 'Rule ' + this.props.acceptColour;
 				text = 'Accept';
 				break;
 			case 'Reject':
-				className = 'Rule Reject';
+				className = 'Rule ' + this.props.rejectColour;
 				text = 'Reject';
 				break;
 			case 'FreeChoice':
@@ -51,6 +52,8 @@ const mapStateToProps = (state, ownProps) => {
 	return {
 		type: trial.rule,
 		showText: true,
+		acceptColour: getAcceptColour(state),
+		rejectColour: getRejectColour(state),
 		trialIndex,
 		phase
 	}

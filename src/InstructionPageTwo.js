@@ -8,9 +8,10 @@ import reject_a from './images/instructions/reject_a.png';
 import reject_b from './images/instructions/reject_b.png';
 import cross from './images/fixation_cross.png';
 import { Markup } from 'interweave';
+import {getRejectColour, getAcceptColour} from './redux/colourselectors';
 
 const keyStrings = {
-	a: {
+	Blue: {
 		accept: {
 			fish: "<b>button X</b> should be pressed with your <b>left middle finger.</b>",
 			crab: "<b>button M</b> should be pressed with your <b>right middle finger.</b>"
@@ -20,7 +21,7 @@ const keyStrings = {
 			crab: "<b>button N</b> should be pressed with your <b>right index finger.</b>"
 		}
 	},
-	b: {
+	Orange: {
 		accept: {
 			fish: "<b>button C</b> should be pressed with your <b>left index finger.</b>",
 			crab: "<b>button N</b> should be pressed with your <b>right index finger.</b>"
@@ -33,20 +34,20 @@ const keyStrings = {
 };
 
 const imgSrc = {
-	a: {
+	Blue: {
 		accept: correct_a,
 		reject: reject_a
 	},
-	b: {
+	Orange: {
 		accept: correct_b,
 		reject: reject_b
 	}
 };
 
-function InstructionPageTwo({version}) {
+function InstructionPageTwo({acceptColour, rejectColour}) {
 
-	const keyText = keyStrings[version];
-	const imgs = imgSrc[version];
+	const keyText = keyStrings[acceptColour];
+	const imgs = imgSrc[acceptColour];
 
 	return (
 		<div className="InstructionPage">
@@ -56,10 +57,10 @@ function InstructionPageTwo({version}) {
 					<span className="TextEmphasis">Take notice of the rule.</span><br/>
 					A sign will appear briefly on the screen to tell you whether you should reject or accept the catch.
 					<div className="InstructionRules">
-						<span className="SmallRule Accept Left">
+						<span className={`SmallRule ${acceptColour} Left`}>
 							Accept
 						</span>
-						<span className="SmallRule Reject Right">
+						<span className={`SmallRule ${rejectColour} Right`}>
 							Reject
 						</span>
 					</div>
@@ -81,7 +82,7 @@ function InstructionPageTwo({version}) {
 					</div>
 					<div className="Columns">
 						<div className="ColumnTextSpan">
-							<span className="SmallRule Accept">
+							<span className={`SmallRule ${acceptColour}`}>
 								Accept
 							</span>
 							<br />
@@ -104,7 +105,7 @@ function InstructionPageTwo({version}) {
 					</div>
 					<div className="Columns">
 						<div className="ColumnTextSpan">
-							<span className="SmallRule Reject">
+							<span className={`SmallRule ${rejectColour}`}>
 								Reject
 							</span>
 							<br />
@@ -127,7 +128,8 @@ function InstructionPageTwo({version}) {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		version: 'a'
+		acceptColour: getAcceptColour(state),
+		rejectColour: getRejectColour(state),
 	}
 };
 

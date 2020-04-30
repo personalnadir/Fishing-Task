@@ -7,7 +7,8 @@ import {
 	PHASE2_PRACTICE,
 	PHASE2,
 	PHASE3,
-	QUESTIONNAIRE
+	QUESTIONNAIRE,
+	RULE_TO_KEY
 } from './globalconstants';
 import {PAGE_FLOW as phase1PageFlow, PAGE_FLOW_BREAK} from './phase1constants';
 import {PAGE_FLOW as phase2PageFlow, APPROACH_REWARDS, AVOIDANCE_REWARDS} from './phase2constants';
@@ -46,6 +47,7 @@ const getWasCorrect = (state) => getPhaseState(state).lastKeyCorrect;
 const getWasLate = (state) => getPhaseState(state).wasLate;
 const getWasReject = (state) => getPhaseState(state).lastKeyReject;
 const getEarnings = (state) => state[PHASE2].earnings;
+const getAcceptColour = state => state.global.acceptColour;
 
 const getTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => trials[index]);
 const getReward = createSelector(getTrial, getWasCorrect, getWasLate, (trial, correct, late)=> {
@@ -119,6 +121,7 @@ const userInputForLastTrial = createSelector(getPhaseState, getCurrentTrialIndex
 export default getTrial;
 export {
 	canProgressToNextPhase,
+	getAcceptColour,
 	getCurrentTrialIndex,
 	getCustomCorrectKey,
 	getEarnings,

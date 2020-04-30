@@ -3,9 +3,21 @@ import Rule from './Rule';
 import { connect } from 'react-redux';
 import toBlue from './images/instructions/to_blue_containers.png';
 import toOrange from './images/instructions/to_orange_containers.png';
+import {getAcceptColour, getRejectColour} from './redux/colourselectors';
 
+const imgSrc = {
+	Blue: {
+		accept: toBlue,
+		reject: toOrange
+	},
+	Orange: {
+		accept: toOrange,
+		reject: toBlue
+	}
+};
 
-function InstructionPageNine({version}) {
+function InstructionPageNine({acceptColour, rejectColour}) {
+	const imgs = imgSrc[acceptColour];
 	return (
 		<div className = "InstructionPage">
 			<ul className = "InstructionTextBullets">
@@ -16,14 +28,14 @@ function InstructionPageNine({version}) {
 
 			<div className="HalfWidth">
 				<div className="ColumnTextSpan">
-					<span className="SmallRule Accept">
+					<span className={`SmallRule ${acceptColour}`}>
 						Accept
 					</span>
 					<br />
 					<br />
 					<img
 						className="InstructionImages"
-						src={toBlue}
+						src={imgs['accept']}
 					/>
 				</div>
 			</div>
@@ -31,14 +43,14 @@ function InstructionPageNine({version}) {
 			</div>
 			<div className="HalfWidth">
 				<div className="ColumnTextSpan">
-					<span className="SmallRule Reject">
+					<span className={`SmallRule ${rejectColour}`}>
 						Reject
 					</span>
 					<br />
 					<br />
 					<img
 						className="InstructionImages"
-						src={toOrange}
+						src={imgs['reject']}
 					/>
 				</div>
 			</div>
@@ -48,7 +60,8 @@ function InstructionPageNine({version}) {
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		version: 'a'
+		acceptColour: getAcceptColour(state),
+		rejectColour: getRejectColour(state),
 	}
 };
 

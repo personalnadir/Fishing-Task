@@ -4,6 +4,7 @@ import {
 
 const initialState = {
   phaseIndex: 0,
+  acceptColour: 'Orange'
 };
 
 export default function(state = initialState, action) {
