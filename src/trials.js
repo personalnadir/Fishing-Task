@@ -10,6 +10,7 @@ export default function createTrials(images, numBlocks, trialBlock) {
 	for (let i = 0; i < numBlocks; i++) {
 		const trials = createBlockTrials(trialBlock);
 		for (let k = 0; k < trialBlock.length; k ++) {
+			trials[k].block = i + 1;
 			blocks[(i * trialBlock.length) + k] = trials[k];
 		}
 	}
