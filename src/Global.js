@@ -3,6 +3,7 @@ import Phase1Practice from './Phase1Practice';
 import Phase1 from './Phase1';
 import Phase2 from './Phase2';
 import Phase3 from './Phase3';
+import LoginPage from './LoginPage';
 import Questionnaires from './Questionnaires';
 import Instructions from './Instructions';
 import { connect } from 'react-redux';
@@ -11,6 +12,8 @@ import {getPhase} from './redux/selectors';
 
 function Global({phase}) {
 	switch (phase) {
+		case global.LOGIN_PAGE:
+			return <LoginPage />;
 		case global.PHASE1_PRACTICE_INSTRUCTIONS:
 		case global.PHASE2_PRACTICE_INSTRUCTIONS:
 		case global.PHASE1_INSTRUCTIONS:
