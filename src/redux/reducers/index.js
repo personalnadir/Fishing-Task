@@ -5,6 +5,7 @@ import phase1 from "./phase1";
 import phase2 from "./phase2";
 import phase3 from "./phase3";
 import global from "./global";
+import data from "./data";
 import instructions from "./instructions";
 import questionnaires from "./questionnaires";
 import {
@@ -22,6 +23,7 @@ import {
 
 export default combineReducers({
 	global,
+	data,
 	[PHASE1_INSTRUCTIONS]: instructions,
 	[PHASE1_PRACTICE]: phase1practice,
 	[PHASE1]: phase1,

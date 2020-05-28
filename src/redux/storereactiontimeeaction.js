@@ -1,4 +1,5 @@
 import createPerDomainActionAndReducer from './createPerDomainActionAndReducer';
+import {setResponse, submitRowOfData} from './dataactions';
 
 const actionPostfix = '/storeKeyReactionTime';
 const wasLateThreshold = 1000;
@@ -10,11 +11,20 @@ const handleStateChange = (state, action) => {
 }
 
 const createActionPayload = (action)=> {
-	return (keyCode, reactionTime) => ({
-		type: action,
-		keyCode,
-		reactionTime
-	});
+	return (trialIndex, keyCode, reactionTime) => {
+		return (dispatch) => {
+			const storeResponseTime = setResponse(trialIndex, reactionTime, keyCode);
+			dispatch(storeResponseTime);
+			dispatch({
+				type: action,
+				trialIndex,
+				keyCode,
+				reactionTime
+			});
+
+			dispatch(submitRowOfData());
+		}
+	}
 }
 
 const {createReducer, getAction} = createPerDomainActionAndReducer(actionPostfix, handleStateChange, createActionPayload);

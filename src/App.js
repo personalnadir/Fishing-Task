@@ -2,8 +2,9 @@ import React from 'react';
 import './App.css';
 import Global from './Global';
 
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import './redux/storedatawatcher';
 
 function App(props) {
   return (

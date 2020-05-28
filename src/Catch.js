@@ -22,6 +22,7 @@ import {
 } from './redux/globalconstants';
 import {Howl, Howler} from 'howler';
 import {getRejectColour, getAcceptColour} from './redux/colourselectors';
+import {setStimulusRevealed} from './redux/dataactions';
 
 class Catch extends React.Component {
   constructor(props) {
@@ -45,6 +46,10 @@ class Catch extends React.Component {
       this.pleaseRespondTimeout = setTimeout(()=> this.pleaseRespond.play(), 2000);
     }
 
+    if (this.props.logRenderTime) {
+      this.props.storeStimulusTime(this.props.trialIndex);
+    }
+
     if (!this.props.timeout) {
       return;
     }
@@ -63,6 +68,11 @@ class Catch extends React.Component {
       } else {
         this.successSound.play();
       }
+    }
+
+
+    if (this.props.logRenderTime) {
+      this.props.storeStimulusTime(this.props.trialIndex);
     }
 
     if (!this.props.timeout) {
@@ -222,6 +232,7 @@ const mapStateToProps = (state, ownProps) => {
     continueButton,
     feedbackSfx,
     pleaseRespondSfx,
+    logRenderTime: !isFeedback,
     acceptColour: getAcceptColour(state),
     rejectColour: getRejectColour(state),
   }
@@ -229,6 +240,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispathToProps = dispatch => {
   return {
+    storeStimulusTime: trialIndex => dispatch(setStimulusRevealed(trialIndex, Date.now())),
     nextPage: (phase, trialIndex) => dispatch(progressThroughCurrentTrial(phase,trialIndex)),
     startTimeout: (phase, trialIndex, timeout) => dispatch(startTimeout(() => progressThroughCurrentTrial(phase, trialIndex),timeout))
   }

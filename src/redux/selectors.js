@@ -29,6 +29,14 @@ const pageFlowBreakOutConditions = {
 	[PHASE1]: PAGE_FLOW_BREAK
 }
 
+const collectTrialDataDuring = {
+	[PHASE1]: true,
+	[PHASE2]: true,
+	[PHASE2_PRACTICE]: true,
+	[PHASE3]: true,
+	[PHASE1_PRACTICE]: true,
+};
+
 const getPhaseIndex = ({global}) => global.phaseIndex;
 const getPhase = createSelector(getPhaseIndex, index => PHASE_FLOW[index]);
 const getState = (state) => state;
@@ -49,7 +57,7 @@ const getWasReject = (state) => getPhaseState(state).lastKeyReject;
 const getEarnings = (state) => state[PHASE2].earnings;
 const getAcceptColour = state => state.global.acceptColour;
 
-const getTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => trials[index]);
+const getTrial = createSelector(getCurrentTrialIndex, getCurrentTrialList, (index, trials) => Number.isInteger(index) ? trials[index]: null);
 const getReward = createSelector(getTrial, getWasCorrect, getWasLate, (trial, correct, late)=> {
 	const rewardLookUp = trial.rule === 'Tax' ? AVOIDANCE_REWARDS: APPROACH_REWARDS;
 
@@ -91,6 +99,9 @@ const getFeedbackInfo = createSelector(getPhaseState, getCurrentTrialIndex, (sta
 	numMistakes: state.numMistakes
 }));
 
+const getTrialRepeated = createSelector(getPhase, getWasCorrect, (phase, correct) => phase === PHASE1 && !correct);
+
+
 const getTrialsCompleted = createSelector(getPhase, getPhaseState, getCurrentTrialIndex, (phase, state, total) => {
 	if (phase !== PHASE1) {
 		return total;
@@ -126,6 +137,8 @@ const canProgressToNextPhase = createSelector(getPhase, showPhase1FeedBack, getW
 
 const userInputForLastTrial = createSelector(getPhaseState, getCurrentTrialIndex, (state, trialIndex) => state.lastKeyPressOnTrial === trialIndex - 1);
 
+const collectTrialDataDuringPhase = createSelector(getPhase, phase => collectTrialDataDuring[phase]);
+
 export default getTrial;
 export {
 	canProgressToNextPhase,
@@ -138,6 +151,7 @@ export {
 	getPage,
 	getPhase,
 	getReward,
+	getTrialRepeated,
 	getTrialRule,
 	getTrialsCompleted,
 	getWasCorrect,
@@ -146,6 +160,7 @@ export {
 	isFeedbackPage,
 	isLastPage,
 	isLastTrial,
+	collectTrialDataDuringPhase,
 	userInputForLastTrial,
 };
 
