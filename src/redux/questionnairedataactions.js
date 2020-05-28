@@ -26,7 +26,7 @@ export const setKeySelected = (questionnaire, keySelected, correct) => ({
 });
 
 export const sendKeySelected = () => {
-	return (dispatch, getState) {
+	return (dispatch, getState) => {
 		const state = getState();
 		submitData(getKeysSelected(state));
 		dispatch({
@@ -49,11 +49,3 @@ const setDataSent = (trialIndex) => ({
 	type: SEND_DATA,
 	trialIndex
 });
-
-export const submitRowOfData = () => {
-	return (dispatch, getState) => {
-		const row = createTrialRow(getState());
-		submitData(row);
-		dispatch(setDataSent(row.trial));
-	};
-;}

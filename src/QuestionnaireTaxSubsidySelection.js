@@ -5,6 +5,7 @@ import { nextPage } from './redux/questionnaireactions';
 import {phase1} from './images';
 import {getPage} from './redux/selectors';
 import {sendGalleryAnimals} from './redux/questionnairedataactions';
+import {getQuestionnaireName} from './redux/questionnairedataselectors';
 import {PAGE_GALLERY_SUBSIDY, PAGE_GALLERY_TAX} from './redux/questionnaireconstants';
 import {QUESTIONNAIRE} from './redux/globalconstants';
 
@@ -19,7 +20,7 @@ class QuestionnaireTaxSubsidySelection extends React.Component{
 		this.state = {
 			showButton: false
 		};
-		this.selectedImages
+		this.selectedImages = [];
 		this.handleSelectionChange = this.handleSelectionChange.bind(this);
 	}
 
@@ -57,8 +58,8 @@ const mapStateToProps = (state, ownProps) => {
 			...trial,
 			path: trial.image
 		})),
-		instruction: instructions[getPage(state)]
-		corrrectImages,
+		instruction: instructions[getPage(state)],
+		correctImages,
 	};
 };
 

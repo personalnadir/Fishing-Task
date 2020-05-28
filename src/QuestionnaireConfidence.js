@@ -6,6 +6,7 @@ import {sendVAS} from './redux/questionnairedataactions';
 import {QUESTIONNAIRE} from './redux/globalconstants';
 import {phase1} from './images';
 import {getPage} from './redux/selectors';
+import {getQuestionnaireName} from './redux/questionnairedataselectors';
 import Slider from './Slider';
 import {PAGE_CONFIDENCE_SUBSIDY, PAGE_CONFIDENCE_TAX} from './redux/questionnaireconstants';
 
@@ -57,7 +58,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		nextPage: (questionniare, value) => {
+		nextPage: (questionnaire, value) => {
 			dispatch(sendVAS(questionnaire, value));
 			dispatch(nextPage());
 		}

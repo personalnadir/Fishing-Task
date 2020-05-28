@@ -1,7 +1,8 @@
 import {changeQuestionnairePage, questionnairesCompleted} from './questionnaireselectors';
 import {sendKeySelected} from './questionnairedataactions';
 import {nextPhase} from './globalactions';
-import {getPage} from './redux/selectors';
+import {getPage} from './selectors';
+import * as questionnaire from './questionnaireconstants';
 
 const DOMAIN = 'questionnaires';
 export const NEXT_PAGE = DOMAIN + '/nextPage';
@@ -18,9 +19,9 @@ export const nextTrialBlock = () => {
 		if (changeQuestionnairePage(state)) {
 			const page = getPage(state);
 			switch (page) {
-				case questionniare.PAGE_KEY_SELECT_SUBSIDY:
-				case questionniare.PAGE_KEY_SELECT_TAX:
-				case questionniare.PAGE_KEY_SELECT_OUTCOME:
+				case questionnaire.PAGE_KEY_SELECT_SUBSIDY:
+				case questionnaire.PAGE_KEY_SELECT_TAX:
+				case questionnaire.PAGE_KEY_SELECT_OUTCOME:
 					dispatch(sendKeySelected());
 				default:
 					break;

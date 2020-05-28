@@ -20,7 +20,6 @@ let watchTrialIndex = watch(() => {
 
 store.subscribe(watchTrialIndex((newVal, oldVal) => {
 	const state = store.getState();
-	console.log(newVal + " " + oldVal + " " + getCurrentTrialIndex(state));
 	if (newVal === null) {
 		return;
 	}
