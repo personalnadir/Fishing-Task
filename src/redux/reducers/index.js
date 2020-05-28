@@ -9,7 +9,10 @@ import data from "./data";
 import instructions from "./instructions";
 import questionnaires from "./questionnaires";
 import questionnairedata from "./questionnairedata";
+import login from './login';
+
 import {
+	LOGIN_PAGE,
 	PHASE1_INSTRUCTIONS,
 	PHASE1_PRACTICE,
 	PHASE1_INTRODUCTION,
@@ -26,6 +29,7 @@ export default combineReducers({
 	global,
 	data,
 	questionnairedata,
+	[LOGIN_PAGE]: login,
 	[PHASE1_INSTRUCTIONS]: instructions,
 	[PHASE1_PRACTICE]: phase1practice,
 	[PHASE1]: phase1,

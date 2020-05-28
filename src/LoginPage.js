@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { nextPhase } from './redux/globalactions';
+import { nextPhase, setABVariant } from './redux/globalactions';
+import { setLoginID } from './redux/dataactions';
+import checkLoginID from './serverlogin';
 
 class LoginPage extends React.Component {
 	constructor (props) {
@@ -10,14 +12,23 @@ class LoginPage extends React.Component {
 		};
 
 		this.handleInput = this.handleInput.bind(this);
+		this.handleButtonPress = this.handleButtonPress.bind(this);
 	}
 
 	handleInput(event) {
-		this.setState({showButton: true});
+		this.setState({
+			showButton: true,
+			id: event.target.value
+		});
+	}
+
+	handleButtonPress(event) {
+		event.persist();
+		this.props.nextPage(this.state.id);
 	}
 
 	render() {
-		const button = this.state.showButton? <button onClick={this.props.nextPage} className="ContinueButton">Continue</button>: null;
+		const button = this.state.showButton? <button onClick={this.handleButtonPress} className="ContinueButton">Continue</button>: null;
 
 		return (
 			<div className = "InstructionPage">
@@ -49,11 +60,19 @@ class LoginPage extends React.Component {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		nextPage: (id) => dispatch(nextPhase())
+		nextPage: (id) => {
+			checkLoginID(id).then(ab => {
+				dispatch(setABVariant(ab));
+				dispatch(setLoginID(id));
+				dispatch(nextPhase());
+			}).catch(error => {
+				console.log(error);
+			});
+		}
 	};
 };
 
 export default connect(
 	null,
 	mapDispatchToProps
-)(LoginPage);
+)(LoginPage);;
