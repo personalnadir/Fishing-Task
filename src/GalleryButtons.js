@@ -29,6 +29,10 @@ export default class GalleryButtons extends React.Component {
 		this.props.onSelectionChange(this.props.images[index], isSelected[index], isSelected.filter(val => val).length);
 	}
 
+	getSelectedImages() {
+		return this.props.images.filter((img, index) => this.state.isSelected[index]);
+	}
+
 	render() {
 		const {images, cols} = this.props;
 		const noFurtherSelections = this.allSelectionsUsed();

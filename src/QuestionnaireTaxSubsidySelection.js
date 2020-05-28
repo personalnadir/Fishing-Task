@@ -4,6 +4,7 @@ import GalleryButtons from './GalleryButtons';
 import { nextPage } from './redux/questionnaireactions';
 import {phase1} from './images';
 import {getPage} from './redux/selectors';
+import {sendGalleryAnimals} from './redux/questionnairedataactions';
 import {PAGE_GALLERY_SUBSIDY, PAGE_GALLERY_TAX} from './redux/questionnaireconstants';
 import {QUESTIONNAIRE} from './redux/globalconstants';
 
@@ -18,18 +19,21 @@ class QuestionnaireTaxSubsidySelection extends React.Component{
 		this.state = {
 			showButton: false
 		};
+		this.selectedImages
 		this.handleSelectionChange = this.handleSelectionChange.bind(this);
 	}
 
-	handleSelectionChange(img, isSelected, numSelected) {
+	handleSelectionChange(img, isSelected, numSelected, selectedImages) {
 		this.setState({
 			showButton: numSelected === 6
 		});
+
+		this.selectedImages = selectedImages;
 	}
 
 	render() {
-		const {nextPage} = this.props;
-		const button = this.state.showButton? <button onClick={() => nextPage()} className="ContinueButton">Continue</button>
+		const {nextPage, questionnaire, correctImages} = this.props;
+		const button = this.state.showButton? <button onClick={() => nextPage(questionnaire, correctImages)} className="ContinueButton">Continue</button>
 		: null;
 		return (
 			<div className = "InstructionPage">
@@ -42,17 +46,25 @@ class QuestionnaireTaxSubsidySelection extends React.Component{
 }
 
 const mapStateToProps = (state, ownProps) => {
+	const qState = state[QUESTIONNAIRE];
+	const imagePool = qState.taxSubsidyImages;
+	const name = getQuestionnaireName(state);
+	const correctImages = name === "SUBSIDY_IMAGE_SELECTION"? qState.subsidyImages: qState.taxImages;
+
 	return {
-		images: state[QUESTIONNAIRE].taxSubsidyImages.map(trial => ({
+		questionnaire: getQuestionnaireName(state),
+		images: imagePool.map(trial => ({
 			...trial,
 			path: trial.image
 		})),
 		instruction: instructions[getPage(state)]
+		corrrectImages,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
+		sendData: (questionnaire, imagesSelected, correctImages) => dispatch(sendGalleryAnimals(questionnaire, imagesSelected, correctImages)),
 		nextPage: () => dispatch(nextPage())
 	};
 };

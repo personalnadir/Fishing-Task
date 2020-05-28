@@ -6,6 +6,8 @@ import {nextPage, nextTrialBlock} from './redux/questionnaireactions';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import KeyListener from './KeyListener';
 import {getAcceptColour, getRejectColour} from './redux/colourselectors';
+import {setKeySelected} from './redux/questionnairedataactions';
+import {getQuestionnaireName} from './redux/questionnairedataselectors';
 import {phase1} from './images';
 import {
 	PAGE_KEY_SELECT_SUBSIDY,
@@ -31,6 +33,7 @@ class KeySelection extends React.Component {
 		if (!keyCodes[code]) {
 			return;
 		}
+		this.props.logKey(this.props.questionniare, code);
 		this.props.nextPage();
 		return false;
 	}
@@ -89,6 +92,7 @@ const mapStateToProps = (state, ownProps) => {
 	const block = getQuestionnaireTrialBlock(state);
 	const page = getPage(state);
 	return {
+		questionnaire: getQuestionnaireName(state),
 		showTrialColour: page === PAGE_KEY_SELECT_OUTCOME,
 		image: block.image,
 		rule: block.rule,
@@ -100,6 +104,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+  	logKey: (questionnaire, selected, correct) => dispatch(setKeySelected(questionnaire, selected, correct)),
     nextPage: (phase) => dispatch(nextTrialBlock()),
   }
 }

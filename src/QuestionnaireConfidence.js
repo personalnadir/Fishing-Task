@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import GalleryButtons from './GalleryButtons';
 import { nextPage } from './redux/questionnaireactions';
+import {sendVAS} from './redux/questionnairedataactions';
 import {QUESTIONNAIRE} from './redux/globalconstants';
 import {phase1} from './images';
 import {getPage} from './redux/selectors';
@@ -30,13 +31,12 @@ class QuestionnaireConfidence extends React.Component{
 		this.setState({
 			showButton: true
 		});
-
-		console.log(event.target.value);
+		this.selectedValue = event.target.value;
 	}
 
 	render() {
 		const {nextPage} = this.props;
-		const button = this.state.showButton? <button onClick={() => nextPage()} className="ContinueButton">Continue</button>
+		const button = this.state.showButton? <button onClick={() => nextPage(this.props.questionnaire, this.selectedValue)} className="ContinueButton">Continue</button>
 		: null;
 		return (
 			<div className = "InstructionPage">
@@ -50,13 +50,17 @@ class QuestionnaireConfidence extends React.Component{
 
 const mapStateToProps = (state, ownProps) => {
 	return {
-		instruction: instructions[getPage(state)]
+		instruction: instructions[getPage(state)],
+		questionnaire: getQuestionnaireName(state),
 	};
 }
 
 const mapDispatchToProps = dispatch => {
 	return {
-		nextPage: () => dispatch(nextPage())
+		nextPage: (questionniare, value) => {
+			dispatch(sendVAS(questionnaire, value));
+			dispatch(nextPage());
+		}
 	};
 };
 

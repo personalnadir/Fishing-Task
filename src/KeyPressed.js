@@ -111,7 +111,7 @@ const mapDispatchToProps = dispatch => {
   return {
     nextPage: (phase, trialIndex) => dispatch(getNextPageAction(phase)(trialIndex)),
     correctKeyPressed: (phase, trialIndex, correctColour, code, correct, reactionTime) => {
-      dispatch(getStoreKeyReactionTimeAction(phase)(code, reactionTime));
+      dispatch(getStoreKeyReactionTimeAction(phase)(trialIndex, code, reactionTime));
       const wasReject = isReject[correctColour][code];
      	dispatch(getStoreKeyStrokeAction(phase)(code, correct, wasReject));
       const handleKeyStroke = getHandleKeyStroke(phase);
