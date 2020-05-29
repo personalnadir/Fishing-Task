@@ -8,11 +8,14 @@ export const SEND_KEYS_SELECTED = 'questionnairedata/sendKeysSelected';
 export const SET_VAS = 'questionnairedata/setVAS';
 export const SEND_DATA = 'questionnairedata/sendData';
 
+const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
+
 export const sendGalleryAnimals = (questionnaire, userSelected, correct) => {
+	const extractFilePaths = imgs => imgs.map(v => getFilenameFromPath(v.image));
 	const row = {
 		questionnaire,
-		imagesSelected: userSelected,
-		correctImages: correct
+		imagesSelected: extractFilePaths(userSelected),
+		correctImages: extractFilePaths(correct)
 	};
 	submitData(row);
 	return {...row, type: SET_ANIMALS};

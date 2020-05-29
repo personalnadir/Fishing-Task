@@ -58,7 +58,6 @@ class KeyPressed extends React.Component {
     this.handleKeyEvent = this.handleKeyEvent.bind(this);
   }
 
-
   handleKeyEvent(code) {
     const correct = this.props.checkCorrect(code);
 

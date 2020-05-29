@@ -34,7 +34,7 @@ class QuestionnaireTaxSubsidySelection extends React.Component{
 
 	render() {
 		const {nextPage, questionnaire, correctImages} = this.props;
-		const button = this.state.showButton? <button onClick={() => nextPage(questionnaire, correctImages)} className="ContinueButton">Continue</button>
+		const button = this.state.showButton? <button onClick={() => nextPage(questionnaire, this.selectedImages,correctImages)} className="ContinueButton">Continue</button>
 		: null;
 		return (
 			<div className = "InstructionPage">
@@ -65,8 +65,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		sendData: (questionnaire, imagesSelected, correctImages) => dispatch(sendGalleryAnimals(questionnaire, imagesSelected, correctImages)),
-		nextPage: () => dispatch(nextPage())
+		nextPage: (questionnaire, imagesSelected, correctImages) => {
+			dispatch(sendGalleryAnimals(questionnaire, imagesSelected, correctImages));
+			dispatch(nextPage());
+		}
 	};
 };
 
