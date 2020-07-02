@@ -14,6 +14,7 @@ import {
 	PAGE_KEY_SELECT_TAX,
 	PAGE_KEY_SELECT_OUTCOME
 } from './redux/questionnaireconstants';
+import {PHASE2} from './redux/globalconstants';
 
 const keyChars = ['X', 'C', 'N', 'M'];
 const keyCodes = {'KeyC': true, 'KeyX': true, 'KeyN': true, 'KeyM': true};
@@ -33,7 +34,7 @@ class KeySelection extends React.Component {
 		if (!keyCodes[code]) {
 			return;
 		}
-		this.props.logKey(this.props.questionniare, code);
+		this.props.logKey(this.props.questionnaire, code, this.props.correctKey);
 		this.props.nextPage();
 		return false;
 	}
@@ -91,6 +92,7 @@ class KeySelection extends React.Component {
 const mapStateToProps = (state, ownProps) => {
 	const block = getQuestionnaireTrialBlock(state);
 	const page = getPage(state);
+	const correctKey = state[PHASE2].keyLookUp[block.image];
 	return {
 		questionnaire: getQuestionnaireName(state),
 		showTrialColour: page === PAGE_KEY_SELECT_OUTCOME,
@@ -99,6 +101,7 @@ const mapStateToProps = (state, ownProps) => {
 		instruction: instructions[page],
 		acceptColour: getAcceptColour(state),
 		rejectColour: getRejectColour(state),
+		correctKey
 	}
 };
 
