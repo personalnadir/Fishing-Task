@@ -123,7 +123,7 @@ const getCorrectKeyForTrial = createSelector(getPhaseState, getTrial, getAcceptC
 	}
 
 	return state.keyLookUp[trial.image];
-})
+});
 
 const showPhase1FeedBack = phaseState => phaseState.showFeedback;
 

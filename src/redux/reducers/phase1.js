@@ -21,7 +21,7 @@ const initialState = {
   trials: createTrials(phase1, numBlocks, phase1Block),
 };
 
-const trialsBetweenFeedback = 5;
+const trialsBetweenFeedback = 12;
 
 export default function(state = initialState, action) {
   const {trialIndex, pageIndex: curPage} = state;
