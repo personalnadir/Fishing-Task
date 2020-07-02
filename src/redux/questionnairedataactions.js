@@ -1,4 +1,5 @@
 import {getKeysSelected} from './questionnairedataselectors';
+import {genStandardFields} from './dataselectors';
 import submitData from '../senddata';
 
 export const SET_ANIMALS = 'questionnairedata/setGalleryAnimals';
@@ -10,15 +11,20 @@ export const SEND_DATA = 'questionnairedata/sendData';
 
 const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
 
+
 export const sendGalleryAnimals = (questionnaire, userSelected, correct) => {
-	const extractFilePaths = imgs => imgs.map(v => getFilenameFromPath(v.image));
-	const row = {
-		questionnaire,
-		imagesSelected: extractFilePaths(userSelected),
-		correctImages: extractFilePaths(correct)
+	return (dispatch, getState) => {
+		const extractFilePaths = imgs => imgs.map(v => getFilenameFromPath(v.image));
+		const standardFields = genStandardFields(getState());
+		const row = {
+			...standardFields,
+			questionnaire,
+			imagesSelected: extractFilePaths(userSelected),
+			correctImages: extractFilePaths(correct)
+		};
+		submitData(row);
+		return {...row, type: SET_ANIMALS};
 	};
-	submitData(row);
-	return {...row, type: SET_ANIMALS};
 };
 
 export const setKeySelected = (questionnaire, keySelected, correct) => ({
@@ -31,7 +37,12 @@ export const setKeySelected = (questionnaire, keySelected, correct) => ({
 export const sendKeySelected = () => {
 	return (dispatch, getState) => {
 		const state = getState();
-		submitData(getKeysSelected(state));
+		const data = getKeysSelected(state);
+		const standardFields = genStandardFields(getState);
+		submitData({
+			...data,
+			...standardFields
+		});
 		dispatch({
 			type:CLEAR_KEYS_SELECTED
 		});
@@ -39,13 +50,19 @@ export const sendKeySelected = () => {
 };
 
 export const sendVAS = (questionnaire, value) => {
-	const row = {
-		questionnaire,
-		value
-	};
-	submitData(row);
+	return (dispatch, getState) => {
+		const state = getState();
+		const standardFields = genStandardFields(getState);
 
-	return {...row, type: SET_VAS};
+		const row = {
+			...standardFields,
+			questionnaire,
+			value
+		};
+		submitData(row);
+
+		return {...row, type: SET_VAS};
+	}
 };
 
 const setDataSent = (trialIndex) => ({

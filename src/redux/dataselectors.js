@@ -27,3 +27,14 @@ export const createTrialRow = state => {
 		correct: correctKey === data.key
 	};
 };
+
+export const genStandardFields = state => {
+	const {data} = state;
+	const today = new Date();
+
+	return {
+		participant: data.id,
+		date: today.toISOString(),
+		millis: today.getTime(),
+	};
+};
