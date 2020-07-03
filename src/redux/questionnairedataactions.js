@@ -38,7 +38,7 @@ export const sendKeySelected = () => {
 	return (dispatch, getState) => {
 		const state = getState();
 		const data = getKeysSelected(state);
-		const standardFields = genStandardFields(getState);
+		const standardFields = genStandardFields(state);
 		submitData({
 			...data,
 			...standardFields
@@ -52,7 +52,7 @@ export const sendKeySelected = () => {
 export const sendVAS = (questionnaire, value) => {
 	return (dispatch, getState) => {
 		const state = getState();
-		const standardFields = genStandardFields(getState);
+		const standardFields = genStandardFields(state);
 
 		const row = {
 			...standardFields,
