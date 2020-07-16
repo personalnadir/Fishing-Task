@@ -1,3 +1,5 @@
+import {getCorrectKeyForTrial} from '../selectors';
+
 import {
   SET_PHASE,
   SET_TRIAL,
@@ -5,6 +7,7 @@ import {
   SET_PARTICIPANT_AB,
   SET_STIMULUS_REVEAL_TIME,
   SET_RESPONSE_TIME,
+  SET_RESPONSE_KEY,
   SET_LOGIN_ID,
   SEND_DATA
 } from "../dataactions";
@@ -44,8 +47,16 @@ export default function(state = initialState, action) {
       return {
         ...state,
         key: action.keyCode,
-        reactionTime: action.rt
+        reactionTime: action.rt,
       };
+    case SET_RESPONSE_KEY: {
+      return {
+        ...state,
+        key: action.keyCode,
+        wasCorrect: action.wasCorrect,
+        correctKey: action.correctKey
+      };
+    }
     case SET_STIMULUS_REVEAL_TIME:
       return {
         ...state,

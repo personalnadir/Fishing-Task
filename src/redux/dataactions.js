@@ -6,6 +6,7 @@ export const SET_TRIAL = 'data/setTrial';
 export const SET_PARTICIPANT_AB = 'data/setParticipantAb';
 export const SET_STIMULUS_REVEAL_TIME = 'data/setStimulusRevealTime';
 export const SET_RESPONSE_TIME = 'data/setResponseTime';
+export const SET_RESPONSE_KEY = 'data/setResponseKey';
 export const SET_LOGIN_ID = 'data/setLoginID';
 export const SEND_DATA = 'data/sendData';
 
@@ -29,6 +30,13 @@ export const setResponseTime = (trialIndex, rt, keyCode) => ({
 	rt,
 	trialIndex,
 	keyCode
+});
+
+export const setResponseKey = (trialIndex, pressedKey, correctKey, correct) => ({
+	type: SET_RESPONSE_KEY,
+	keyCode: pressedKey,
+	wasCorrect: correct,
+	correctKey
 });
 
 export const setParticipantAb = (ab) => ({

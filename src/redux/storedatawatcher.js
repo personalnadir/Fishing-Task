@@ -15,7 +15,7 @@ let watchTrialIndex = watch(() => {
 	}
 	const phase = getPhase(state);
 
-	return getCurrentTrialIndex(state)
+	return getCurrentTrialIndex(state);
 });
 
 store.subscribe(watchTrialIndex((newVal, oldVal) => {

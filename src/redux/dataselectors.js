@@ -1,11 +1,11 @@
 import {getCorrectKeyForTrial} from './selectors';
-import { createSelector } from 'reselect';
 
 const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
 
 export const createTrialRow = state => {
 	const {data} = state;
-	const correctKey = getCorrectKeyForTrial(state);
+	const correctKey = data.correctKey;
+	console.assert((correctKey === data.key) === data.wasCorrect,`correctKey ${correctKey} pressedKey ${data.key} wasCorrect ${data.wasCorrect}`);
 	const today = new Date();
 	return {
 		participant: data.id,

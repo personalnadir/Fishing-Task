@@ -1,4 +1,6 @@
 import createPerDomainActionAndReducer from './createPerDomainActionAndReducer';
+import {setResponseKey} from './dataactions';
+import {getCurrentTrialIndex, getCorrectKeyForTrial} from './selectors';
 
 const actionPostfix = '/storeKeystroke';
 const handleStateChange = (state, action) => {
@@ -12,16 +14,23 @@ const handleStateChange = (state, action) => {
 		lastKeyCorrect: action.correct,
 		lastKeyReject: action.wasReject
 	};
-}
+};
 
 const createActionPayload = (action)=> {
-	return (keyCode, correct, wasReject) => ({
-		type: action,
-		keyCode,
-		correct,
-		wasReject
-	});
-}
+	return (keyCode, correct, correctKey, wasReject) => {
+		return (dispatch, getState) => {
+			const correctKey = getCorrectKeyForTrial(getState());
+			const t = getCurrentTrialIndex(getState());
+			dispatch(setResponseKey(t, keyCode, correctKey, correct));
+			dispatch({
+				type: action,
+				keyCode,
+				correct,
+				wasReject
+			});
+		};
+	};
+};
 
 const {createReducer, getAction} = createPerDomainActionAndReducer(actionPostfix, handleStateChange, createActionPayload);
 
