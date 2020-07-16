@@ -6,7 +6,7 @@ import getTrial, {
 	getTrialRepeated,
 	collectTrialDataDuringPhase
 } from './selectors';
-import {setPhase, setTrialBlockStart, setTrial} from './dataactions';
+import {setPhase, setTrialBlockStart, setTrial, submitRowOfData} from './dataactions';
 
 let watchTrialIndex = watch(() => {
 	const state = store.getState();
@@ -20,7 +20,7 @@ let watchTrialIndex = watch(() => {
 
 store.subscribe(watchTrialIndex((newVal, oldVal) => {
 	const state = store.getState();
-	if (newVal === null) {
+	if (newVal === null || oldVal == null) {
 		return;
 	}
 	const trial = getTrial(state);
@@ -28,6 +28,7 @@ store.subscribe(watchTrialIndex((newVal, oldVal) => {
 		return;
 	}
 	store.dispatch(setTrial(getCurrentTrialIndex(state), trial, Date.now()));
+	store.dispatch(submitRowOfData());
 }));
 
 let watchPhase = watch(() => getPhase(store.getState()));

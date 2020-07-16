@@ -24,7 +24,7 @@ export const setTrial = (trialIndex, trial, time) => ({
 	time
 });
 
-export const setResponse = (trialIndex, rt, keyCode) => ({
+export const setResponseTime = (trialIndex, rt, keyCode) => ({
 	type: SET_RESPONSE_TIME,
 	rt,
 	trialIndex,
