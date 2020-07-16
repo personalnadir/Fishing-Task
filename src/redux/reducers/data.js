@@ -9,11 +9,11 @@ import {
   SET_RESPONSE_TIME,
   SET_RESPONSE_KEY,
   SET_LOGIN_ID,
+  SET_EARNINGS_CHANGE,
   SEND_DATA
 } from "../dataactions";
 
 const initialState = {
-  data: []
 };
 
 export default function(state = initialState, action) {
@@ -61,6 +61,11 @@ export default function(state = initialState, action) {
       return {
         ...state,
         stimulusTime: action.time
+      };
+    case SET_EARNINGS_CHANGE:
+      return {
+        ...state,
+        earningsChange: action.amount
       };
     case SEND_DATA:
       return {

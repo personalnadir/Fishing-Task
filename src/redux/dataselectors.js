@@ -1,4 +1,4 @@
-import {getCorrectKeyForTrial} from './selectors';
+import {getEarnings} from './selectors';
 
 const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
 
@@ -24,7 +24,9 @@ export const createTrialRow = state => {
 		correctKey: correctKey,
 		pressedKey: data.key,
 		reactionTime: data.reactionTime,
-		correct: correctKey === data.key
+		correct: correctKey === data.key,
+		rewardChange: data.earningsChange,
+		rewardTotal: getEarnings(state)
 	};
 };
 

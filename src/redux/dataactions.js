@@ -8,6 +8,7 @@ export const SET_STIMULUS_REVEAL_TIME = 'data/setStimulusRevealTime';
 export const SET_RESPONSE_TIME = 'data/setResponseTime';
 export const SET_RESPONSE_KEY = 'data/setResponseKey';
 export const SET_LOGIN_ID = 'data/setLoginID';
+export const SET_EARNINGS_CHANGE = 'data/storeEarningsChange';
 export const SEND_DATA = 'data/sendData';
 
 export const setPhase = (phase) => ({
@@ -48,6 +49,12 @@ export const setStimulusRevealed = (trialIndex, time) => ({
 	type: SET_STIMULUS_REVEAL_TIME,
 	time,
 	trialIndex
+});
+
+
+export const setEarningsChange = (amount) => ({
+	type: SET_EARNINGS_CHANGE,
+	amount
 });
 
 export const setLoginID = id => ({
