@@ -61,7 +61,7 @@ export default function(state = initialState, action) {
       return {
         ...state,
         id: action.id
-      }
+      };
     default:
       return state;
   }

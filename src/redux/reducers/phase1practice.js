@@ -36,7 +36,7 @@ export default function(state = initialState, action) {
         ...state,
         pageIndex: nextPage,
         trialIndex: trialIndex,
-      }
+      };
     default:
       return actionReducers(state, action);
   }

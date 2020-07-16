@@ -57,5 +57,5 @@ export const submitRowOfData = () => {
 		const row = createTrialRow(getState());
 		submitData(row);
 		dispatch(setDataSent(row.trial));
-	}
-}
+	};
+};

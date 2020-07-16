@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect'
+import { createSelector } from 'reselect';
 import {
 	PHASE_FLOW,
 	PHASE1_INSTRUCTIONS,
@@ -23,11 +23,11 @@ const pageFlowLookup = {
 	[PHASE3]: phase3PageFlow,
 	[PHASE1_PRACTICE]: phase1PracticePageFlow,
 	[QUESTIONNAIRE]: questionnairePageFlow,
-}
+};
 
 const pageFlowBreakOutConditions = {
 	[PHASE1]: PAGE_FLOW_BREAK
-}
+};
 
 const collectTrialDataDuring = {
 	[PHASE1]: true,
@@ -44,7 +44,7 @@ const getPageFlow = (state) => pageFlowLookup[getPhase(state)];
 const getPageFlowBreak = (state) => {
 	const breakOut = pageFlowBreakOutConditions[getPhase(state)];
 	return breakOut? breakOut(getPhaseState(state)) : undefined;
-}
+};
 
 const getPhaseState = createSelector(getPhase, getState, (phase, state) => state[phase]);
 const getCurrentTrialIndex = (state) => getPhaseState(state).trialIndex;
@@ -83,7 +83,7 @@ const isLastPage = createSelector(getPhase, getPageIndex, getPageFlow, (phase, p
 	if (phase === PHASE3) {
 		offset = 2;
 	}
-	return pageIndex + offset >= pageFlow.length
+	return pageIndex + offset >= pageFlow.length;
 });
 
 const getTrialRule = createSelector(getTrial, trial => {
