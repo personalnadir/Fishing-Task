@@ -1,4 +1,5 @@
 import {getEarnings} from './selectors';
+import getFileNameFromWebpackPath from '../webpackfilename';
 
 const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
 
@@ -16,7 +17,7 @@ export const createTrialRow = state => {
 		trial: data.currentTrialIndex,
 		trialTime: data.currentTrial.time,
 		rule: data.currentTrial.rule,
-		image: getFilenameFromPath(data.currentTrial.filePath),
+		image: getFileNameFromWebpackPath(data.currentTrial.filePath),
 		filePath: data.currentTrial.filePath,
 		block: data.currentBlock.number,
 		blockStartTime: data.currentBlock.startTime,
