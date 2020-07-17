@@ -92,6 +92,10 @@ const getTrialRule = createSelector(getTrial, trial => {
 	return rule + ' ' + trial.type;
 });
 
+const getForceMistake = createSelector(getTrial, trial => {
+	return trial.forceMistake;
+});
+
 const getFeedbackInfo = createSelector(getPhaseState, getCurrentTrialIndex, (state, total) => ({
 	total:(total + state.numMistakes),
 	numCorrect: state.numCorrect,
@@ -147,6 +151,7 @@ export {
 	getCurrentTrialIndex,
 	getEarnings,
 	getFeedbackInfo,
+	getForceMistake,
 	getInstructionPage,
 	getPage,
 	getPhase,
