@@ -1,8 +1,6 @@
 import React from 'react';
-import cross from './images/fixation_cross.png';
-import example from './images/instructions/subsidy_example.png'
-import fish from './images/fish/phase1practice/Stimulus_orange_Fish4_cropped.png';
-import crab from './images/fish/phase1practice/Stimulus_orange_Crab2_cropped.png'
+import example from './images/instructions/subsidy_example.png';
+import fish from './images/fish/phase1practice/Fish4.png';
 
 export default function InstructionPageSeven() {
 	return (
