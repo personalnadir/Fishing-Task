@@ -55,7 +55,7 @@ export function createPhase3Block(images, phase1Block, phase2Block) {
 			list = [val];
 		}
 		obj[key] = list;
-	}
+	};
 
 	let phase1LookUp = {};
 	let phase1RuleLookUp = {};
@@ -82,14 +82,14 @@ export function createPhase3Block(images, phase1Block, phase2Block) {
 		} while (img.image in selectedImg);
 		selectedImg[img.image] = true;
 		return img;
-	}
+	};
 
 	const rules = {
 		CompatibleApproach: () => getUnusedImg(phase1RuleLookUp['Accept']),
 		CompatibleAvoid: () => getUnusedImg(phase1RuleLookUp['Reject']),
 		IncompatibleApproach: () => getUnusedImg(phase2RuleLookUp['Accept']),
 		IncompatibleAvoid: () => getUnusedImg(phase2RuleLookUp['Reject']),
-	}
+	};
 
 	return freeChoice.map(img => ({
 		type: img.type,

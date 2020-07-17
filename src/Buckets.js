@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import getTrial, {getPhase, getTrialRule} from './redux/selectors';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import {getAcceptColour} from './redux/colourselectors';
@@ -94,7 +94,7 @@ const mapStateToProps = (state, ownProps) => {
     highlightKey: trial.highlightKey,
     acceptColour: getAcceptColour(state),
     phase
-  }
+  };
 };
 
 

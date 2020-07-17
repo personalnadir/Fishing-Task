@@ -47,7 +47,7 @@ function splitImages(combinedImages) {
 		phase1: fishPhases.phase1.concat(crabPhases.phase1),
 		phase2: fishPhases.phase2.concat(crabPhases.phase2),
 		phase3: fishPhases.phase3.concat(crabPhases.phase3)
-	}
+	};
 }
 
 const phaseImages = splitImages(nonPractice);

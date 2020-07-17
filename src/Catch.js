@@ -1,6 +1,6 @@
 import React from 'react';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import {startTimeout} from './redux/action';
 import getTrial, {
   isFeedbackPage,
@@ -9,7 +9,6 @@ import getTrial, {
   getEarnings,
   getWasReject,
   getCurrentTrialIndex,
-  userInputForLastTrial
 } from './redux/selectors';
 import { progressThroughCurrentTrial }  from './redux/trialactions';
 import KeyPressed from './KeyPressed';
@@ -155,7 +154,6 @@ const mapStateToProps = (state, ownProps) => {
   const trialIndex = getCurrentTrialIndex(state);
   const phase = getPhase(state);
   const isFeedback = isFeedbackPage(state);
-  const isPhase1 = phase === PHASE1;
   const wasCorrect = getWasCorrect(state);
   const wasReject = getWasReject(state);
 
@@ -164,7 +162,7 @@ const mapStateToProps = (state, ownProps) => {
   let timeout;
   let requireKeyboardInput;
   let continueButton;
-  let wasWrong = trial.forceMistake === true
+  let wasWrong = trial.forceMistake === true;
   let showText = isFeedback;
   let haveFeedback = true;
   let pleaseRespondSfx;
@@ -195,7 +193,6 @@ const mapStateToProps = (state, ownProps) => {
       requireKeyboardInput = true;
       break;
     case PHASE3:
-      // haveFeedback = userInputForLastTrial(state);
       showText = false;
       if (isFeedback) {
         timeout = 1000;
@@ -235,7 +232,7 @@ const mapStateToProps = (state, ownProps) => {
     logRenderTime: !isFeedback,
     acceptColour: getAcceptColour(state),
     rejectColour: getRejectColour(state),
-  }
+  };
 };
 
 const mapDispathToProps = dispatch => {
@@ -243,8 +240,8 @@ const mapDispathToProps = dispatch => {
     storeStimulusTime: trialIndex => dispatch(setStimulusRevealed(trialIndex, Date.now())),
     nextPage: (phase, trialIndex) => dispatch(progressThroughCurrentTrial(phase,trialIndex)),
     startTimeout: (phase, trialIndex, timeout) => dispatch(startTimeout(() => progressThroughCurrentTrial(phase, trialIndex),timeout))
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,

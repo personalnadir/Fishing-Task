@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import {startTimeout} from './redux/action';
 import getTrial, {getPhase, getCurrentTrialIndex} from './redux/selectors';
@@ -56,14 +56,14 @@ const mapStateToProps = (state, ownProps) => {
 		rejectColour: getRejectColour(state),
 		trialIndex,
 		phase
-	}
+	};
 };
 
 const mapDispathToProps = dispatch => {
 	return {
 		startTimeout: (phase, trialIndex) => dispatch(startTimeout(()=>getNextPageAction(phase)(trialIndex),1000))
-	}
-}
+	};
+};
 
 export default connect(
 	mapStateToProps,
