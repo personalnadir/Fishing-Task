@@ -39,6 +39,7 @@ export default function(state = initialState, action) {
         ...state,
         pageIndex: nextPage,
         trialIndex: nextTrialIndex,
+        forceDataSubmit: lastPage && !state.lastKeyCorrect
       };
     case MARK_FEEDBACK_SHOWN:
       return {

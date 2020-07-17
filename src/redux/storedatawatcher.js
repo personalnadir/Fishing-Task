@@ -34,6 +34,19 @@ store.subscribe(watchTrialIndex((newVal, oldVal) => {
 let watchPhase = watch(() => getPhase(store.getState()));
 
 store.subscribe(watchPhase((newVal, oldVal) => {
-	const state = store.getState();
 	store.dispatch(setPhase(newVal));
+}));
+
+let watchForceSubmitDataSubmit = watch(() => {
+	const state = store.getState();
+	if (!collectTrialDataDuringPhase(state) || getPhase(state) !== PHASE1) {
+		return null;
+	}
+	return state[PHASE1].forceDataSubmit;
+});
+
+store.subscribe(watchForceSubmitDataSubmit((newVal, oldVal) => {
+	if (newVal && !oldVal) {
+		store.dispatch(submitRowOfData());
+	}
 }));
