@@ -23,6 +23,7 @@ export const setTrial = (trialIndex, trial, time) => ({
 	filePath: trial.image,
 	rule: trial.rule,
 	block: trial.block,
+	forceMistake: trial.forceMistake,
 	time
 });
 

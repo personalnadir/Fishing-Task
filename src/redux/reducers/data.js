@@ -1,10 +1,6 @@
-import {getCorrectKeyForTrial} from '../selectors';
-
 import {
   SET_PHASE,
   SET_TRIAL,
-  SET_TRIALBLOCK,
-  SET_PARTICIPANT_AB,
   SET_STIMULUS_REVEAL_TIME,
   SET_RESPONSE_TIME,
   SET_RESPONSE_KEY,
@@ -40,8 +36,9 @@ export default function(state = initialState, action) {
           filePath: action.filePath,
           rule: action.rule,
           time: action.time,
+          forcedMistake: action.forceMistake
         },
-        currentBlock: newBlock
+        currentBlock: newBlock,
       };
     case SET_RESPONSE_TIME:
       return {
