@@ -1,5 +1,4 @@
 import {
-	PHASE1_INSTRUCTIONS,
 	PHASE1_PRACTICE,
 	PHASE1,
 	PHASE2_PRACTICE,
@@ -47,7 +46,7 @@ const nextPageLookUp = {
   [PHASE3]: phase3NextPage,
   [PHASE1_PRACTICE]: phase1PracticeNextPage,
   [PHASE2_PRACTICE]: phase2PracticeNextPage,
-}
+};
 
 const storeKeyReactionTimeLookUp = {
   [PHASE1]: phase1StoreReactionTime,
@@ -55,7 +54,7 @@ const storeKeyReactionTimeLookUp = {
   [PHASE3]: phase3StoreReactionTime,
   [PHASE1_PRACTICE]: phase1PracticeStoreReactionTime,
   [PHASE2_PRACTICE]: phase2PracticeStoreReactionTime
-}
+};
 
 const storeKeyPressLookUp = {
   [PHASE1]: phase1StoreKeyPress,
@@ -63,14 +62,14 @@ const storeKeyPressLookUp = {
   [PHASE3]: phase3StoreKeyPress,
   [PHASE1_PRACTICE]: phase1PracticeStoreKeyPress,
   [PHASE2_PRACTICE]: phase2PracticeStoreKeyPress,
-}
+};
 
 const keyStrokeLogic = {
 	[PHASE1]: phase1TestShowFeedback,
 	[PHASE2_PRACTICE]: phase2PracticeUpdateEarnings,
 	[PHASE2]: phase2UpdateEarnings,
 	[PHASE3]: setKeyPressTrialIndex
-}
+};
 
 const getNextPageAction = (phase) => nextPageLookUp[phase];
 const getStoreKeyStrokeAction = (phase) => storeKeyPressLookUp[phase];
@@ -82,4 +81,4 @@ export {
 	getStoreKeyStrokeAction,
 	getStoreKeyReactionTimeAction,
 	getHandleKeyStroke
-}
+};

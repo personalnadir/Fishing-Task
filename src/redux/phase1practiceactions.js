@@ -10,7 +10,7 @@ const keyReactionTimeReducer = createReactionTimeReducer(DOMAIN);
 export const actionReducers = (state, action) => {
 	state = keyStoreReducer(state, action);
 	return keyReactionTimeReducer(state, action);
-}
+};
 
 export const storeKeyPress = getStoreKeyStrokeAction(DOMAIN);
 export const storeKeyReactionTime = getStoreReactionTimeAction(DOMAIN);
