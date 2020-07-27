@@ -17,7 +17,7 @@ const handleStateChange = (state, action) => {
 };
 
 const createActionPayload = (action)=> {
-	return (keyCode, correct, correctKey, wasReject) => {
+	return (keyCode, correct, wasReject) => {
 		return (dispatch, getState) => {
 			const correctKey = getCorrectKeyForTrial(getState());
 			const t = getCurrentTrialIndex(getState());
