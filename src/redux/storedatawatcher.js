@@ -7,6 +7,7 @@ import getTrial, {
 	collectTrialDataDuringPhase
 } from './selectors';
 import {setPhase, setTrialBlockStart, setTrial, submitRowOfData} from './dataactions';
+import {PHASE1} from './globalconstants';
 
 let watchTrialIndex = watch(() => {
 	const state = store.getState();
