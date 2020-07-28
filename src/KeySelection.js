@@ -1,14 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import {getPage} from './redux/selectors';
-import {getQuestionnaireTrialBlock} from './redux/questionnaireselectors'
-import {nextPage, nextTrialBlock} from './redux/questionnaireactions';
+import {getQuestionnaireTrialBlock} from './redux/questionnaireselectors';
+import {nextTrialBlock} from './redux/questionnaireactions';
 import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import KeyListener from './KeyListener';
 import {getAcceptColour, getRejectColour} from './redux/colourselectors';
 import {setKeySelected} from './redux/questionnairedataactions';
 import {getQuestionnaireName} from './redux/questionnairedataselectors';
-import {phase1} from './images';
 import {
 	PAGE_KEY_SELECT_SUBSIDY,
 	PAGE_KEY_SELECT_TAX,
@@ -102,15 +101,15 @@ const mapStateToProps = (state, ownProps) => {
 		acceptColour: getAcceptColour(state),
 		rejectColour: getRejectColour(state),
 		correctKey
-	}
+	};
 };
 
 const mapDispatchToProps = dispatch => {
   return {
   	logKey: (questionnaire, selected, correct) => dispatch(setKeySelected(questionnaire, selected, correct)),
     nextPage: (phase) => dispatch(nextTrialBlock()),
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,

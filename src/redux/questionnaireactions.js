@@ -23,6 +23,7 @@ export const nextTrialBlock = () => {
 				case questionnaire.PAGE_KEY_SELECT_TAX:
 				case questionnaire.PAGE_KEY_SELECT_OUTCOME:
 					dispatch(sendKeySelected());
+					break;
 				default:
 					break;
 			}
@@ -37,7 +38,7 @@ export const nextTrialBlock = () => {
 		dispatch({
 			type: NEXT_TRIALBLOCK
 		});
-	}
+	};
 };
 
 

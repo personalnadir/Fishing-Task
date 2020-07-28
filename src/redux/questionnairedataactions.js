@@ -62,7 +62,7 @@ export const sendVAS = (questionnaire, value) => {
 		submitData(row);
 
 		return {...row, type: SET_VAS};
-	}
+	};
 };
 
 const setDataSent = (trialIndex) => ({

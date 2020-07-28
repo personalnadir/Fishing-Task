@@ -26,7 +26,7 @@ function Questionnaires({page}) {
 const mapStateToProps = (state, ownProps) => {
 	return {
 		page: getPage(state)
-	}
+	};
 };
 
 export default connect(
