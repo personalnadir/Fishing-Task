@@ -33,7 +33,7 @@ class KeySelection extends React.Component {
 		if (!keyCodes[code]) {
 			return;
 		}
-		this.props.logKey(this.props.questionnaire, code, this.props.correctKey);
+		this.props.logKey(this.props.questionnaire, this.props.image, code, this.props.correctKey);
 		this.props.nextPage();
 		return false;
 	}
@@ -106,7 +106,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-  	logKey: (questionnaire, selected, correct) => dispatch(setKeySelected(questionnaire, selected, correct)),
+  	logKey: (questionnaire, img, selected, correct) => dispatch(setKeySelected(questionnaire, img, selected, correct)),
     nextPage: (phase) => dispatch(nextTrialBlock()),
   };
 };

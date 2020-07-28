@@ -28,9 +28,10 @@ export const sendGalleryAnimals = (questionnaire, userSelected, correct) => {
 	};
 };
 
-export const setKeySelected = (questionnaire, keySelected, correct) => ({
+export const setKeySelected = (questionnaire, imagePath, keySelected, correct) => ({
 	type: SET_KEY_SELECTED,
 	questionnaire,
+	image: getFileNameFromWebpackPath(imagePath),
 	userSelectedKey: keySelected,
 	correctKey: correct
 });
@@ -40,10 +41,7 @@ export const sendKeySelected = () => {
 		const state = getState();
 		const data = getKeysSelected(state);
 		const standardFields = genStandardFields(state);
-		submitData({
-			...data,
-			...standardFields
-		});
+		submitData(data.map(v => Object.assign(v, standardFields)));
 		dispatch({
 			type:CLEAR_KEYS_SELECTED
 		});
