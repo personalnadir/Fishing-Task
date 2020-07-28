@@ -1,6 +1,7 @@
 import {getKeysSelected} from './questionnairedataselectors';
 import {genStandardFields} from './dataselectors';
 import submitData from '../senddata';
+import getFileNameFromWebpackPath from '../webpackfilename';
 
 export const SET_ANIMALS = 'questionnairedata/setGalleryAnimals';
 export const SET_KEY_SELECTED = 'questionnairedata/setCorrectKeySelection';
@@ -14,7 +15,7 @@ const getFilenameFromPath = (path) => path.split('\\').pop().split('/').pop();
 
 export const sendGalleryAnimals = (questionnaire, userSelected, correct) => {
 	return (dispatch, getState) => {
-		const extractFilePaths = imgs => imgs.map(v => getFilenameFromPath(v.image));
+		const extractFilePaths = imgs => imgs.map(v => getFileNameFromWebpackPath(v.image));
 		const standardFields = genStandardFields(getState());
 		const row = {
 			...standardFields,
