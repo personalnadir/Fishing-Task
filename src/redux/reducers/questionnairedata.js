@@ -1,9 +1,6 @@
 import {
-  SET_ANIMALS,
   SET_KEY_SELECTED,
-  SET_VAS,
   CLEAR_KEYS_SELECTED,
-  SEND_DATA
 } from "../questionnairedataactions";
 
 const initialState = {

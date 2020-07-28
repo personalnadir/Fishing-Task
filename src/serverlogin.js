@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://161.35.160.140/api/login';
+const url = process.env.REACT_APP_LOGIN_URL;
 
 export default function checkLoginID(id) {
 	return new Promise((resolve, reject) => {
@@ -14,7 +14,7 @@ export default function checkLoginID(id) {
 			    }
 		  	})
 		  	.catch(function (error) {
-		    	reject(error)
+		    	reject(error);
 	  		});
 	});
 };

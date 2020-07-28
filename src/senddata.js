@@ -1,5 +1,5 @@
 import axios from 'axios';
-const url = 'http://161.35.160.140/api/store';
+const url = process.env.REACT_APP_SEND_DATA_URL;
 
 export default function submitData(payload) {
 	axios.post(url, payload)
