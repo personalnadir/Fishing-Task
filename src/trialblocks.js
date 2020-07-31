@@ -75,28 +75,28 @@ export function createPhase3Block(images, phase1Block, phase2Block) {
 
 	const selectedImg = {};
 	freeChoice.forEach(img => selectedImg[img.path] = true);
-	const getUnusedImg = list => {
+	const getUnusedImg = (list, imgType) => {
 		let img;
 		do {
 			img = list.pop();
-		} while (img.image in selectedImg);
+		} while (img.image in selectedImg || imgType !== img.type);
 		selectedImg[img.image] = true;
 		return img;
 	};
 
 	const rules = {
-		CompatibleApproach: () => getUnusedImg(phase1RuleLookUp['Accept']),
-		CompatibleAvoid: () => getUnusedImg(phase1RuleLookUp['Reject']),
-		IncompatibleApproach: () => getUnusedImg(phase2RuleLookUp['Accept']),
-		IncompatibleAvoid: () => getUnusedImg(phase2RuleLookUp['Reject']),
+		CompatibleApproach: imgType => getUnusedImg(phase1RuleLookUp['Accept'], imgType),
+		CompatibleAvoid: imgType => getUnusedImg(phase1RuleLookUp['Reject'], imgType),
+		IncompatibleApproach: imgType => getUnusedImg(phase2RuleLookUp['Accept'], imgType),
+		IncompatibleAvoid: imgType => getUnusedImg(phase2RuleLookUp['Reject'], imgType),
 	};
 
 	return freeChoice.map(img => ({
 		type: img.type,
 		rule: 'FreeChoice',
 		image: img.path
-	})).concat(Object.values(rules).map(func => func()))
-	.concat(Object.values(rules).map(func => func()));
+	})).concat(Object.values(rules).map(func => func('Crab')))
+	.concat(Object.values(rules).map(func => func('Fish')));
 }
 
 export const phasePractice1Block = createPhase1Block(phase1Practice);
