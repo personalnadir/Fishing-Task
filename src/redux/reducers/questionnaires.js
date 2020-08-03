@@ -3,7 +3,7 @@ import {
   NEXT_TRIALBLOCK
 } from "../questionnaireactions";
 
-import {phase2Block, phase3Block} from '../../trialblocks';
+import {phase1Block, phase2Block} from '../../trialblocks';
 
 const initialState = {
   pageIndex: 0,
@@ -11,7 +11,7 @@ const initialState = {
   taxSubsidyImages: phase2Block,
   taxImages: phase2Block.filter(trial => trial.rule === 'Tax'),
   subsidyImages: phase2Block.filter(trial => trial.rule === 'Subsidy'),
-  keySelectionImages: phase3Block.filter(trial => trial.rule !== 'FreeChoice')
+  keySelectionImages: phase1Block
 };
 
 export default function(state = initialState, action) {
