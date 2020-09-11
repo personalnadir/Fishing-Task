@@ -37,5 +37,5 @@ export const getQuestionnaireTrialBlock = (state) => {
 
 export const questionnairesCompleted = (state) => {
 	const qs = getQuestionnaireState(state);
-	return qs.pageIndex == PAGE_FLOW.length - 1;
-}
+	return qs.pageIndex === PAGE_FLOW.length - 1;
+};
