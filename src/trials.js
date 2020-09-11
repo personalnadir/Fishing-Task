@@ -38,7 +38,7 @@ function forceKeys(trials, forFirst) {
 				return 0;
 			}
 		}
-	}
+	};
 	let fish = trials.filter(trial => trial.type === 'Fish').sort(comparitor);
 	let crabs = trials.filter(trial => trial.type === 'Crab').sort(comparitor);
 

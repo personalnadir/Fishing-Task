@@ -18,7 +18,7 @@ export const changeQuestionnairePage = state => {
 		default:
 			return false;
 	}
-}
+};
 
 export const getQuestionnaireTrialBlock = (state) => {
 	const qs = getQuestionnaireState(state);

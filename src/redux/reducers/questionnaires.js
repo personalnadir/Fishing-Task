@@ -4,14 +4,15 @@ import {
 } from "../questionnaireactions";
 
 import {phase1Block, phase2Block} from '../../trialblocks';
+import shuffle from '../../util';
 
 const initialState = {
   pageIndex: 0,
   imageIndex: 0,
-  taxSubsidyImages: phase2Block,
-  taxImages: phase2Block.filter(trial => trial.rule === 'Tax'),
-  subsidyImages: phase2Block.filter(trial => trial.rule === 'Subsidy'),
-  keySelectionImages: phase1Block
+  taxSubsidyImages: shuffle(phase2Block.splice()),
+  taxImages: shuffle(phase2Block.filter(trial => trial.rule === 'Tax').splice()),
+  subsidyImages: shuffle(phase2Block.filter(trial => trial.rule === 'Subsidy').splice()),
+  keySelectionImages: shuffle(phase1Block.splice())
 };
 
 export default function(state = initialState, action) {
