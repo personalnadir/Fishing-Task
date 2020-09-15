@@ -1,14 +1,13 @@
 import {getPage} from './selectors';
-import { createSelector } from 'reselect';
 import * as questionnaire from './questionnaireconstants';
 
 export const getQuestionnaireName = state => {
 	const page = getPage(state);
 	switch (page) {
 		case questionnaire.PAGE_GALLERY_SUBSIDY:
-			return "SUBSIDY_IMAGE_SELECTION"
+			return "SUBSIDY_IMAGE_SELECTION";
 		case questionnaire.PAGE_GALLERY_TAX:
-			return "TAX_IMAGE_SELECTION"
+			return "TAX_IMAGE_SELECTION";
 		case questionnaire.PAGE_KEY_SELECT_SUBSIDY:
 			return "PHASE2_KEY_SELECTION_SUBSIDY";
 		case questionnaire.PAGE_KEY_SELECT_TAX:
