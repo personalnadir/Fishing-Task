@@ -4,15 +4,15 @@ import {
 } from "../questionnaireactions";
 
 import {phase1Block, phase2Block} from '../../trialblocks';
-import shuffle from '../../util';
+import _ from 'underscore';
 
 const initialState = {
   pageIndex: 0,
   imageIndex: 0,
-  taxSubsidyImages: shuffle(phase2Block.splice()),
-  taxImages: shuffle(phase2Block.filter(trial => trial.rule === 'Tax').splice()),
-  subsidyImages: shuffle(phase2Block.filter(trial => trial.rule === 'Subsidy').splice()),
-  keySelectionImages: shuffle(phase1Block.splice())
+  taxSubsidyImages: _.shuffle(phase2Block),
+  taxImages: _.shuffle(phase2Block.filter(trial => trial.rule === 'Tax')),
+  subsidyImages: _.shuffle(phase2Block.filter(trial => trial.rule === 'Subsidy')),
+  keySelectionImages: _.shuffle(phase1Block)
 };
 
 export default function(state = initialState, action) {
