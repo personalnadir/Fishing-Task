@@ -23,7 +23,7 @@ export const sendGalleryAnimals = (questionnaire, userSelected, correct) => {
 			imagesSelected: extractFilePaths(userSelected),
 			correctImages: extractFilePaths(correct)
 		};
-		submitData(row);
+		submitData('imageSelection', row);
 		return {...row, type: SET_ANIMALS};
 	};
 };
@@ -41,7 +41,7 @@ export const sendKeySelected = () => {
 		const state = getState();
 		const data = getKeysSelected(state);
 		const standardFields = genStandardFields(state);
-		submitData(data.map(v => Object.assign(v, standardFields)));
+		submitData('keySelection', data.map(v => Object.assign(v, standardFields)));
 		dispatch({
 			type:CLEAR_KEYS_SELECTED
 		});
@@ -58,7 +58,7 @@ export const sendVAS = (questionnaire, value) => {
 			questionnaire,
 			value
 		};
-		submitData(row);
+		submitData('vas', row);
 
 		return {...row, type: SET_VAS};
 	};

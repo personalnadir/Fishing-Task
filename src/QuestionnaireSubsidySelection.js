@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import GalleryButtons from './GalleryButtons';
 import { nextPage } from './redux/questionnaireactions';
 import {QUESTIONNAIRE} from './redux/globalconstants';
-import {phase1} from './images';
 
 class QuestionnaireSubsidySelection extends React.Component{
 	constructor(props) {

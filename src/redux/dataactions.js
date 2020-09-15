@@ -71,7 +71,7 @@ const setDataSent = (trialIndex) => ({
 export const submitRowOfData = () => {
 	return (dispatch, getState) => {
 		const row = createTrialRow(getState());
-		submitData(row);
+		submitData('trials', row);
 		dispatch(setDataSent(row.trial));
 	};
 };
