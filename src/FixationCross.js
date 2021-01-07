@@ -4,7 +4,7 @@ import FullScreenVerticalAlign from './FullScreenVerticalAlign';
 import {getPhase, getCurrentTrialIndex} from './redux/selectors';
 import {startTimeout} from './redux/action';
 import {getNextPageAction} from './redux/phaseactions';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 
 class FixationCross extends React.Component {
   componentDidMount() {
@@ -35,14 +35,14 @@ const mapStateToProps = (state, ownProps) => {
   return {
     phase,
     trialIndex
-  }
+  };
 };
 
 const mapDispathToProps = dispatch => {
   return {
     startTimeout: (phase, trialIndex) => dispatch(startTimeout(() => getNextPageAction(phase)(trialIndex),1000))
-  }
-}
+  };
+};
 
 export default connect(
   mapStateToProps,
